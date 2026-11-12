@@ -52,7 +52,16 @@ export function initMobile() {
   ab.addEventListener('pointerup', () => actionSet(false));
   ab.addEventListener('pointercancel', () => actionSet(false));
 
-  // 長押しメニュー・選択・ダブルタップ拡大を抑止
+  // 長押しメニュー・選択・ダブルタップ拡大・ピンチ拡大を抑止（iPhone Safari は user-scalable=no を無視するため）
+  for (const ev of ['gesturestart', 'gesturechange', 'gestureend']) document.addEventListener(ev, e => e.preventDefault());
+  document.addEventListener('touchmove', e => { if (e.touches.length > 1 || e.target.closest?.('#stage, #touch')) e.preventDefault(); }, { passive: false });
+  let lastTap = 0;
+  document.addEventListener('touchend', e => {
+    const now = Date.now();
+    if (now - lastTap < 350) e.preventDefault();      // ダブルタップ拡大
+    lastTap = now;
+  }, { passive: false });
+  document.addEventListener('dblclick', e => e.preventDefault());
   for (const el of [pad, jb, ab, $('stage')]) el.addEventListener('contextmenu', e => e.preventDefault());
 
   // ---- 全画面 ----

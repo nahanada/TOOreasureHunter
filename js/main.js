@@ -21,6 +21,7 @@ async function start() {
   const params = new URLSearchParams(location.search);
   // ステージ指定なし = ゲームの最初から。タイトル画面 → ストーリー → 最初のステージ
   // RTA: タイトル左下の「RTA」から選んだステージだけを遊び、ゴールまでのタイムを出す（URL の ?stage=stage1&rta=1 でも可）
+  const touch = initMobile();                  // 全画面ボタンとタッチ操作は、タイトル・ストーリーでも使えるように最初に準備
   let stageId = params.get('stage');
   let rta = !!stageId && params.has('rta');
   if (!stageId) {
@@ -49,7 +50,6 @@ async function start() {
   const world = new World(stage, tileData);
   world.itemCatalog = itemCatalog;
   const theme = stage.theme ?? 'field';
-  const touch = initMobile();
   const player = new Player(cfg, world, buildCharacterSprites(charData));
 
   // ---- 背景 ----

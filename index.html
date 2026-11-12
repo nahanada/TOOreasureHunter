@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#000000">
 <title>TOOreasureHunter</title>
 <style>
-  html, body { margin: 0; height: 100%; background: #222; color: #ddd; font-family: sans-serif; }
+  html, body { margin: 0; height: 100%; background: #222; color: #ddd; font-family: sans-serif; touch-action: none; overflow: hidden; }
   body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
          -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; overscroll-behavior: none; }
 
@@ -28,10 +28,10 @@
 
   /* ---- タッチ操作（スマホ） ---- */
   #touch { display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; pointer-events: none;
-           padding: 0 max(10px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+           padding: 0 max(10px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) calc(max(10px, env(safe-area-inset-left)) + 6px);
            justify-content: space-between; align-items: flex-end; }
   body.touch #touch { display: flex; }
-  #touch * { touch-action: none; }
+  #touch *, #btn-fs, canvas { touch-action: none; -webkit-user-select: none; user-select: none; }
   #pad { pointer-events: auto; display: flex; width: 144px; height: 63px; border-radius: 32px;
          background: rgba(0,0,0,.35); border: 1.5px solid rgba(255,255,255,.35); }
   #pad > div { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 22px; color: rgba(255,255,255,.85);
