@@ -1,0 +1,17 @@
+{
+ "first": "tutorial",
+ "rta": [
+  {
+   "id": "stage1",
+   "label": "FIRST STAGE"
+  },
+  {
+   "id": "stage2",
+   "label": "SECOND STAGE"
+  },
+  {
+   "id": "stage3",
+   "label": "THIRD STAGE"
+  }
+ ]
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+<title>TOOreasureHunter</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #222; color: #ddd; font-family: sans-serif; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+         -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; overscroll-behavior: none; }
+
+  #stage { position: relative; display: flex; justify-content: center; }
+  /* キャンバスのサイズは main.js が「1ピクセル = 画面の物理1ピクセル」になるよう設定する */
+  canvas { display: block; image-rendering: pixelated; background: #000; }
+  p { margin: 0; font-size: 14px; }
+
+  /* ---- 全画面（プレイ）モード ---- */
+  body.play { background: #000; gap: 0; }
+  body.play #stage { position: fixed; inset: 0; align-items: center; }
+  body.play p { display: none; }
+  /* 右上の全画面ボタン（全画面中は × になって終了ボタンを兼ねる） */
+  #btn-fs { position: fixed; top: max(8px, env(safe-area-inset-top)); right: max(8px, env(safe-area-inset-right));
+            width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,.5);
+            background: rgba(0,0,0,.45); color: #fff; font-size: 18px; line-height: 1; padding: 0; z-index: 30; cursor: pointer; }
+
+  /* ---- タッチ操作（スマホ） ---- */
+  #touch { display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; pointer-events: none;
+           padding: 0 max(10px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+           justify-content: space-between; align-items: flex-end; }
+  body.touch #touch { display: flex; }
+  #touch * { touch-action: none; }
+  #pad { pointer-events: auto; display: flex; width: 144px; height: 63px; border-radius: 32px;
+         background: rgba(0,0,0,.35); border: 1.5px solid rgba(255,255,255,.35); }
+  #pad > div { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 22px; color: rgba(255,255,255,.85);
+               border-radius: 32px; }
+  #pad > div.on { background: rgba(255,255,255,.3); }
+  #btns { display: flex; gap: 14px; align-items: flex-end; }
+  #btn-jump, #btn-action { pointer-events: auto; width: 72px; height: 72px; border-radius: 50%; font-size: 27px; line-height: 1; color: rgba(255,255,255,.9);
+              background: rgba(0,0,0,.35); border: 1.5px solid rgba(255,255,255,.45); padding: 0; }
+  #btn-action { font-size: 40px; }   /* 丸い点を大きめに */
+  #btn-jump.on, #btn-action.on { background: rgba(255,255,255,.35); }
+  /* アクションボタン: 実行できるイベントが近くにあるときだけ光る */
+  #btn-action.ready { border-color: #ffd23f; box-shadow: 0 0 10px 2px rgba(255,210,63,.7); }
+
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="game" width="1080" height="540"></canvas>
+</div>
+<button id="btn-fs" aria-label="全画面にする" title="ブラウザのバーを隠す">⛶</button>
+
+<div id="touch">
+  <div id="pad"><div id="btn-left">◀</div><div id="btn-right">▶</div></div>
+  <div id="btns">
+    <button id="btn-jump" aria-label="ジャンプ">▲</button>
+    <button id="btn-action" aria-label="アクション（宝箱を開けるなど）">●</button>
+  </div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

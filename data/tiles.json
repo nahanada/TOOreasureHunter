@@ -1,0 +1,2381 @@
+{
+  "pixelScale": 3,
+  "palette": {
+    "g": "#6cc83a",
+    "h": "#2f8f3a",
+    "H": "#1f6b2c",
+    "d": "#7a4a24",
+    "e": "#5a3419",
+    "f": "#94602f",
+    "s": "#9a927b",
+    "t": "#756e5b",
+    "m": "#4a4538",
+    "l": "#b7af95",
+    "v": "#4f8a3a",
+    "w": "#9a5420",
+    "W": "#5c2f10",
+    "y": "#ffd23f",
+    "Y": "#c99a12",
+    "u": "#2f7d5c",
+    "U": "#57b58a",
+    "a": "#3a4060",
+    "b": "#262a42",
+    "c": "#525a82",
+    "x": "#161a2c",
+    "N": "#05050c",
+    "P": "#3a1f5c",
+    "k": "#aab4c8",
+    "K": "#6b7590",
+    "o": "#ffb347",
+    "O": "#ff7a1a",
+    "q": "#fff3c4",
+    "Q": "#ffd98a",
+    "B": "#6b4423",
+    "D": "#4a2e16",
+    "E": "#8a5a30",
+    "R": "#c9a26a",
+    "n": "#9a9a9a",
+    "p": "#7d7d7d",
+    "r": "#5f5f66",
+    "z": "#bcbcc2",
+    "I": "#c6c8d2",
+    "J": "#a4a8b8",
+    "M": "#7e8294",
+    "Z": "#5c6072",
+    "F": "#d6cfbf",
+    "G": "#b9b2a1",
+    "S": "#7fc4e8",
+    "T": "#3f86b3",
+    "V": "#eaf7ff",
+    "C": "#8f3b34",
+    "X": "#6e2a25",
+    "i": "#f2d34a",
+    "j": "#e8e8e8",
+    "A": "#efe6cf",
+    "L": "#d3c8a8",
+    "0": "#3a4a66",
+    "1": "#2f6fb5",
+    "2": "#1d4a85",
+    "3": "#ffffff",
+    "4": "#e04a3c",
+    "5": "#a92f26",
+    "6": "#9fd6f0",
+    "7": "#5aa0cc",
+    "8": "#2f5f8f",
+    "9": "#f6e08a",
+    "!": "#2e8b3e",
+    "#": "#1d5f2b",
+    "%": "#8a6a3a",
+    "&": "#5b4020",
+    "*": "#f08a2a",
+    "+": "#3c3c44",
+    "=": "#d8d8dc",
+    "@": "#6a6a72",
+    "~": "#f2a0b0",
+    "$": "#7c4fb0",
+    "^": "#56b84a",
+    "-": "#2a2a2a",
+    "_": "#c8a070"
+  },
+  "tiles": {
+    "grass": {
+      "solid": true,
+      "rows": [
+        "gggggggggg",
+        "ghgggghggg",
+        "hHhhHhhhHh",
+        "dhdddhdddh",
+        "ddfdddedfd",
+        "dedddfdddd",
+        "ddddedddfd",
+        "fdddddedde",
+        "dedfddddfd",
+        "dddddedddd"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "dirt": {
+      "solid": true,
+      "rows": [
+        "dddfdddedd",
+        "dedddfdddd",
+        "ddddedddfd",
+        "fdddddedde",
+        "dedfddddfd",
+        "dddddedddd",
+        "ddfdddedfd",
+        "dedddfdddd",
+        "ddddedddfd",
+        "fdddddedde"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "brick": {
+      "solid": true,
+      "rows": [
+        "llllllllll",
+        "ssssstssss",
+        "mmmmmmmmmm",
+        "ssvsmssstt",
+        "ssssmsssst",
+        "mmmmmmmmmm",
+        "ttsssssmss",
+        "tsssvssmss",
+        "mmmmmmmmmm",
+        "sssmssstss"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "chest": {
+      "solid": false,
+      "interact": {
+        "becomes": "chest_open",
+        "message": "宝箱を開けた！"
+      },
+      "rows": [
+        "..........",
+        "..........",
+        ".WWWWWWWW.",
+        "WwwwwwwwwW",
+        "WwwwwwwwwW",
+        "WyyyyyyyyW",
+        "WwwwYYwwwW",
+        "WwwwYYwwwW",
+        "WwwwwwwwwW",
+        "WWWWWWWWWW"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "chest_open": {
+      "solid": false,
+      "rows": [
+        "..WWWWWW..",
+        "..WwwwwW..",
+        "..WwwwwW..",
+        ".WWWWWWWW.",
+        "WeyyyyyyeW",
+        "WyyyYyyyyW",
+        "WwwwwwwwwW",
+        "WwwwYYwwwW",
+        "WwwwwwwwwW",
+        "WWWWWWWWWW"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "ledge": {
+      "solid": true,
+      "rows": [
+        "UuUUuUUuUU",
+        "uuuuuuuuuu",
+        "cacaccacac",
+        "acaaacaaca",
+        "aabaaabaaa",
+        "bbabbbabbb",
+        "bbbbbabbbb",
+        "bbbbbbbbbb",
+        "bxbbbbbxbb",
+        "xxxxxxxxxx"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "rock": {
+      "solid": true,
+      "rows": [
+        "bbabbxbbab",
+        "babbbbabbb",
+        "bbbxbbbbab",
+        "abbbbabbxb",
+        "bbbabbbbbb",
+        "bxbbbbabbb",
+        "bbbbaxbbba",
+        "babbbbbbab",
+        "bbbxbabbbb",
+        "bbabbbbxbb"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "spike": {
+      "hazard": true,
+      "hazardTop": 9,
+      "solid": false,
+      "rows": [
+        "..........",
+        "..........",
+        "..........",
+        ".k...k...k",
+        ".k...k...k",
+        "kkk.kkk.kk",
+        "kKk.kKk.kK",
+        "kKkkkKkkkK",
+        "KKKKKKKKKK",
+        "KKKKKKKKKK"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "stalagmite": {
+      "hazard": true,
+      "hazardShape": "up",
+      "solid": false,
+      "rows": [
+        "....cc....",
+        "....cc....",
+        "...caab...",
+        "...caab...",
+        "..caaabb..",
+        "..caaabb..",
+        ".caaaabbb.",
+        ".caaaabbb.",
+        "caaaaabbbb",
+        "aaaaaabbbb"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "stalactite_l": {
+      "hazard": true,
+      "hazardShape": "left",
+      "solid": false,
+      "rows": [
+        ".........c",
+        ".......cca",
+        ".....ccaaa",
+        "...ccaaaaa",
+        ".ccaaaaaaa",
+        ".bbaaaaaaa",
+        "...bbaaaaa",
+        ".....bbbbb",
+        ".......bbb",
+        ".........b"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "stalactite_r": {
+      "hazard": true,
+      "hazardShape": "right",
+      "solid": false,
+      "rows": [
+        "c.........",
+        "acc.......",
+        "aaacc.....",
+        "aaaaacc...",
+        "aaaaaaacc.",
+        "aaaaaaabb.",
+        "aaaaabb...",
+        "bbbbb.....",
+        "bbb.......",
+        "b........."
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "crystal_blue": {
+      "solid": false,
+      "glow": {
+        "radius": 110,
+        "color": "120,200,255",
+        "alpha": 0.35
+      },
+      "rows": [
+        "..........",
+        "....V.....",
+        "....SV....",
+        "...VST.V..",
+        "...STT.SV.",
+        "..VSTTVST.",
+        "..STTTSTT.",
+        "..STTTSTT.",
+        ".STTTTSTTT",
+        "TTTTTTTTTT"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "crystal_purple": {
+      "solid": false,
+      "glow": {
+        "radius": 110,
+        "color": "200,140,255",
+        "alpha": 0.35
+      },
+      "rows": [
+        "..........",
+        ".....~....",
+        "....~$....",
+        "....$P..~.",
+        "...~$P.~$.",
+        "...$PP.$P.",
+        "..~$PP~$P.",
+        "..$PPP$PP.",
+        ".$PPPP$PPP",
+        "PPPPPPPPPP"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "mushroom_glow": {
+      "solid": false,
+      "glow": {
+        "radius": 80,
+        "color": "120,255,190",
+        "alpha": 0.3
+      },
+      "rows": [
+        "..........",
+        "..........",
+        "..........",
+        "...UUUU...",
+        "..UuuuuU..",
+        ".UuUuuUuU.",
+        ".uuuuuuuu.",
+        "....VV....",
+        "....VV....",
+        "...hVVh..."
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "rock_moss": {
+      "solid": true,
+      "rows": [
+        "vhvvhvvhvh",
+        "hvhhvvhvhv",
+        "bbabbvbbab",
+        "babbbbabbb",
+        "bbbxbbbbab",
+        "abbbbabbxb",
+        "bbbabbbbbb",
+        "bxbbbbabbb",
+        "bbbbaxbbba",
+        "babbbbbbab"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "rock_light": {
+      "solid": true,
+      "rows": [
+        "ccacccaccc",
+        "caccbccacb",
+        "cccaccccac",
+        "accccaccbc",
+        "ccbcccaccc",
+        "cacccacccb",
+        "cccbcaccac",
+        "accccccbcc",
+        "ccacbcccac",
+        "cbcccaccbc"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "bones": {
+      "solid": false,
+      "rows": [
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "..V....V..",
+        ".VkV..VkV.",
+        "..K.VV.K..",
+        ".VkKkkkVV.",
+        "kKkkKkKkkK"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "cobweb": {
+      "solid": false,
+      "rows": [
+        "kkkkkkkk..",
+        "kK.k.k.K..",
+        "k.kK.k.k..",
+        "k.k.kK.k..",
+        "kk..k..k..",
+        "k.kKk.....",
+        "kK.k......",
+        "k.k.......",
+        "k.........",
+        "k........."
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "pebbles": {
+      "solid": false,
+      "rows": [
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "...ca.....",
+        "..cabb.ca.",
+        "bcabbbcabb",
+        "abbbabbbab"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "cave_puddle": {
+      "solid": false,
+      "rows": [
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "...SVSS...",
+        "TTSSTSSTTT",
+        "8TTTTTTT8T"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "hanging_roots": {
+      "solid": false,
+      "rows": [
+        "dedededede",
+        "d.e.d.e.d.",
+        "e.d.e.d.e.",
+        "d.e.d...e.",
+        "..d.e.....",
+        "..e.d.....",
+        "..d.......",
+        "..e.......",
+        "..........",
+        ".........."
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "stalactite": {
+      "hazard": true,
+      "hazardShape": "down",
+      "solid": false,
+      "rows": [
+        "aaaaaabbbb",
+        "caaaaabbbb",
+        ".caaaabbb.",
+        ".caaaabbb.",
+        "..caaabb..",
+        "..caaabb..",
+        "...caab...",
+        "...caab...",
+        "....ab....",
+        "....bb...."
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "pit": {
+      "hazard": true,
+      "hazardTop": 6,
+      "solid": false,
+      "rows": [
+        "PNPNNPNNPN",
+        "NNNNNNNNNN",
+        "NNNNNNNNNN",
+        "NNNNNNNNNN",
+        "NNNNNNNNNN",
+        "NNNNNNNNNN",
+        "NNNNNNNNNN",
+        "NNNNNNNNNN",
+        "NNNNNNNNNN",
+        "NNNNNNNNNN"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "torch": {
+      "solid": false,
+      "glow": {
+        "radius": 120,
+        "color": "255,170,80",
+        "alpha": 0.35
+      },
+      "rows": [
+        "..........",
+        "..........",
+        "....oo....",
+        "...oOOo...",
+        "...oOOo...",
+        "....YY....",
+        "....WW....",
+        "....WW....",
+        "...WWWW...",
+        "..WWWWWW.."
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "exit": {
+      "solid": false,
+      "glow": {
+        "radius": 150,
+        "color": "255,230,150",
+        "alpha": 0.45
+      },
+      "interact": {
+        "goal": true
+      },
+      "rows": [
+        ".ssssssss.",
+        "ssqqqqqqss",
+        "sqqQQQQqqs",
+        "sqQQQQQQqs",
+        "sqQQQQQQqs",
+        "sqQQQQQQqs",
+        "sqQQQQQQqs",
+        "sqQQQQQQqs",
+        "sqQQQQQQqs",
+        "ssssssssss"
+      ],
+      "themes": [
+        "cave",
+        "field",
+        "forest"
+      ]
+    },
+    "crate": {
+      "solid": true,
+      "entity": true,
+      "rows": [
+        "WWWWWWWWWW",
+        "WwwwwwwwwW",
+        "WwWwwwwWwW",
+        "WwwWwwWwwW",
+        "WwwwWWwwwW",
+        "WwwwWWwwwW",
+        "WwwWwwWwwW",
+        "WwWwwwwWwW",
+        "WwwwwwwwwW",
+        "WWWWWWWWWW"
+      ]
+    },
+    "ladder": {
+      "solid": false,
+      "climb": true,
+      "rows": [
+        "..W....W..",
+        "..WwwwwW..",
+        "..W....W..",
+        "..W....W..",
+        "..WwwwwW..",
+        "..W....W..",
+        "..W....W..",
+        "..WwwwwW..",
+        "..W....W..",
+        "..W....W.."
+      ]
+    },
+    "checkpoint": {
+      "solid": false,
+      "checkpoint": "off",
+      "rows": [
+        "..W.......",
+        "..WKKK....",
+        "..WKKKK...",
+        "..WKKK....",
+        "..W.......",
+        "..W.......",
+        "..W.......",
+        "..W.......",
+        "..W.......",
+        ".WWWW....."
+      ]
+    },
+    "checkpoint_on": {
+      "solid": false,
+      "checkpoint": "on",
+      "glow": {
+        "radius": 90,
+        "color": "255,200,90",
+        "alpha": 0.28
+      },
+      "rows": [
+        "..W.......",
+        "..WooO....",
+        "..WooOO...",
+        "..WooO....",
+        "..W.......",
+        "..W.......",
+        "..W.......",
+        "..W.......",
+        "..W.......",
+        ".WWWW....."
+      ]
+    },
+    "log": {
+      "solid": true,
+      "rows": [
+        "EEEEEEEEEE",
+        "EBBBEBBBBE",
+        "BBDBBBBDBB",
+        "BBBBBDBBBB",
+        "BDBBBBBBDB",
+        "BBBBDBBBBB",
+        "BBDBBBBBDB",
+        "BBBBBBDBBB",
+        "DBBBDBBBBD",
+        "DDDDDDDDDD"
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "boulder": {
+      "solid": true,
+      "rows": [
+        "nnzzznnnnp",
+        "nzznnnnnpp",
+        "nnnnnppnpr",
+        "pnnnpppnnp",
+        "nnnnnnnppr",
+        "npnnzznnnp",
+        "nnnnznnnpp",
+        "pnnnnnnppr",
+        "nnpppnnnrr",
+        "pprrrpprrr"
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "bush": {
+      "solid": false,
+      "rows": [
+        "..........",
+        "..........",
+        "...hhhh...",
+        "..hvvvvh..",
+        ".hvvhvvvvh",
+        ".hvvvvhvvh",
+        "hvvhvvvvvH",
+        "hvvvvvhvvH",
+        "HvvvvvvvvH",
+        "HHhHHHHhHH"
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "trunk": {
+      "solid": false,
+      "rows": [
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBBEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBBEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        ".DDBEEBDD.",
+        "DDDBEEBDDD"
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "cave_dark": {
+      "solid": false,
+      "rows": [
+        "NNNNNNNNNN",
+        "NNNNNNNNNN",
+        "NNxNNNNNNN",
+        "NNNNNNNxNN",
+        "NNNNNNNNNN",
+        "NNNNxNNNNN",
+        "NNNNNNNNNN",
+        "NxNNNNNNNN",
+        "NNNNNNNNxN",
+        "NNNNNNNNNN"
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "hole": {
+      "solid": false,
+      "fall": true,
+      "rows": [
+        "NNNNNNNNNN",
+        "NNNNNNNNNN",
+        "NNxNNNNNNN",
+        "NNNNNNNxNN",
+        "NNNNNNNNNN",
+        "NNNNxNNNNN",
+        "NNNNNNNNNN",
+        "NxNNNNNNNN",
+        "NNNNNNNNxN",
+        "NNNNNNNNNN"
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_full": {
+      "solid": false,
+      "rows": [
+        "gvvvvvhvgv",
+        "ghhvvvgggv",
+        "vhghvhhgvg",
+        "vvhhvgHvvh",
+        "HvhHhhhhvh",
+        "hvgvvhgghv",
+        "gHhhhvhvhg",
+        "HhhHHhHHhh",
+        "hhHHHHhhHH",
+        "vHhhhhhhHh"
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_tl": {
+      "solid": false,
+      "rows": [
+        ".......vgh",
+        ".....hvvgg",
+        "...gvghggg",
+        "..hvvvhvvv",
+        "..vvghhgvv",
+        ".vvhvvhvvh",
+        ".vhvvvvvhh",
+        "HhhhvHvhhH",
+        "HHHvvhHhhh",
+        "hHHhhvHvHv"
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_tr": {
+      "solid": false,
+      "rows": [
+        "gvg.......",
+        "vvvvv.....",
+        "gvvvhvv...",
+        "vvghhvhv..",
+        "hvhhhvvv..",
+        "hhhvvHvvh.",
+        "hvhvhgghv.",
+        "vHhvhHhhvh",
+        "hvhHvvHHvv",
+        "HHhvHHhHHH"
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_bl": {
+      "solid": false,
+      "rows": [
+        "hvvvggvgvh",
+        "hggghggggv",
+        "gvvvvvvhgv",
+        ".hHhvvvvHg",
+        ".ghhvvvvvv",
+        "..HvghvvHH",
+        "..hhhvhhvg",
+        "...HhHHHhv",
+        ".....hhhHH",
+        ".......hhH"
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_br": {
+      "solid": false,
+      "rows": [
+        "hhvgvvhggh",
+        "gvvvhvvvvv",
+        "vvvggvgvhh",
+        "vvHvHvgvh.",
+        "ghhHHvhvv.",
+        "vvhvvvgv..",
+        "vhhhhhhv..",
+        "hhvvhhh...",
+        "hhHvH.....",
+        "hhH......."
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_top": {
+      "solid": false,
+      "rows": [
+        "...hvvh...",
+        "..vvvgvv..",
+        ".gvvgvvvh.",
+        ".HvHhHghv.",
+        "HHhvghgHHh",
+        "vhhhhghhHh",
+        "Hhvvvvvvvh",
+        "vvhHHHvHhh",
+        "hvhHhHvHHv",
+        "HHhvhHvHHH"
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_bottom": {
+      "solid": false,
+      "rows": [
+        "vhghhghhgh",
+        "vvvvvgvggv",
+        "gvhgvgvggv",
+        "vhhvvvvvvv",
+        "gvvvvgHhHh",
+        "vvhvhvhghv",
+        ".hhhvvhhv.",
+        ".hhhHhhHH.",
+        "..HhhHhH..",
+        "...vHHH..."
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_left": {
+      "solid": false,
+      "rows": [
+        "....gvhvvv",
+        "..ghvgvvhg",
+        ".vgvhvgvgg",
+        "vvvvvgvhvv",
+        "vhghghvvhh",
+        "hHhHhhhvhg",
+        "hvvhhvvhhH",
+        ".vHHhhhHHv",
+        "..hvvvvvvv",
+        "....HHHhvh"
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_right": {
+      "solid": false,
+      "rows": [
+        "ghhvgg....",
+        "ggghgghh..",
+        "gvhvvvvgv.",
+        "gvvhHHvhvH",
+        "HvHgvvHvvh",
+        "vhvhhvhhgv",
+        "hvhhgvvvHh",
+        "HhHHhhhHH.",
+        "HHHhvhHH..",
+        "vHHhvH...."
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_ball": {
+      "solid": false,
+      "rows": [
+        "...gvvg...",
+        "..vhvvvv..",
+        ".ghghhvvg.",
+        "vhhhvhHghv",
+        "vvvHvvvHHh",
+        "hhhhhvvhhH",
+        "hvvhhvvhvh",
+        ".vHhHhhhH.",
+        "..HHHhhv..",
+        "...vHHh..."
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_oval_v": {
+      "solid": false,
+      "rows": [
+        "....hv....",
+        "..hgvgvg..",
+        "..vvghhg..",
+        "..hhvhhv..",
+        ".vhHHhvHH.",
+        ".gvvvvgvv.",
+        "..vvgHgv..",
+        "..HHhHhh..",
+        "..hhhHvH..",
+        "....vH...."
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_oval_h": {
+      "solid": false,
+      "rows": [
+        "..........",
+        "....hg....",
+        ".hvvvggvg.",
+        ".hvvvvhHv.",
+        "gvhvhvghvv",
+        "vvvHHvvhHg",
+        ".hhvvgvhh.",
+        ".HhHvhhhv.",
+        "....HH....",
+        ".........."
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_pine_top": {
+      "solid": false,
+      "rows": [
+        "....vv....",
+        "....vv....",
+        "...hvgg...",
+        "....vv....",
+        "...Hhvv...",
+        "..vhHvvv..",
+        "...hvvh...",
+        "...Hhvh...",
+        ".vhHHhhHh.",
+        "..hHhHhH.."
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_pine_mid": {
+      "solid": false,
+      "rows": [
+        "..ghvgvg..",
+        "..hhvvvg..",
+        ".vvvhvgvh.",
+        "..hhhhvv..",
+        ".vvhvvhgv.",
+        "ggvHvvvvhg",
+        ".vvhhvhvH.",
+        "hhvHHhvvhh",
+        "HhhvhhhHHh",
+        "hHHHhHHvHH"
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_leaf_pine_low": {
+      "solid": false,
+      "rows": [
+        "..ggvgvg..",
+        "..hvgghh..",
+        ".vghhvgvh.",
+        ".vvghHhvH.",
+        ".ggvvHHvv.",
+        "vhvvhHvvvv",
+        "vvvvvvvhhv",
+        "HHHHHvHhHH",
+        "vhhHHhHHHh",
+        "vvhHHvHHvh"
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_trunk_mid": {
+      "solid": false,
+      "rows": [
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD.."
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_trunk_top": {
+      "solid": false,
+      "rows": [
+        "....DD....",
+        "...DBBD...",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD.."
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_branch_l": {
+      "solid": false,
+      "rows": [
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "D.DBEEBD..",
+        "E.DBEEBD..",
+        "B.DBEEBD..",
+        "EBDBEEBD..",
+        ".BDBEEBD..",
+        ".DDBEEBD..",
+        "..DBEEBD.."
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_branch_r": {
+      "solid": false,
+      "rows": [
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD.D",
+        "..DBEEBD.E",
+        "..DBEEBD.B",
+        "..DBEEBDBE",
+        "..DBEEBDB.",
+        "..DBEEBDD.",
+        "..DBEEBD.."
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "forest_branch_lr": {
+      "solid": false,
+      "rows": [
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "..DBEEBD..",
+        "D.DBEEBD.D",
+        "E.DBEEBD.E",
+        "B.DBEEBD.B",
+        "EBDBEEBDBE",
+        ".BDBEEBDB.",
+        ".DDBEEBDD.",
+        "..DBEEBD.."
+      ],
+      "themes": [
+        "forest"
+      ]
+    },
+    "pass_text": {
+      "solid": false,
+      "passText": true,
+      "rows": [
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        ".........."
+      ],
+      "themes": [
+        "cave"
+      ]
+    },
+    "pavement": {
+      "solid": true,
+      "rows": [
+        "IIIIIIIIII",
+        "JJJJJJJJJJ",
+        "JJMJJJJJMJ",
+        "JJJJJJJJJJ",
+        "MMMMMMMMMM",
+        "JJJJMJJJJJ",
+        "JJJJJJJJJJ",
+        "JMJJJJJMJJ",
+        "JJJJJJJJJJ",
+        "MMMMMMMMMM"
+      ],
+      "themes": [
+        "city"
+      ]
+    },
+    "asphalt": {
+      "solid": true,
+      "rows": [
+        "ZZZZZZZZZZ",
+        "ZZZMZZZZZZ",
+        "ZZZZZZZZMZ",
+        "ZZMZZZZZZZ",
+        "ZZZZZZMZZZ",
+        "ZZZZZZZZZZ",
+        "MZZZZZZZZZ",
+        "ZZZZMZZZZZ",
+        "ZZZZZZZZZM",
+        "ZZZZZZZZZZ"
+      ],
+      "themes": [
+        "city"
+      ]
+    },
+    "concrete": {
+      "solid": false,
+      "rows": [
+        "FFFFFFFFFF",
+        "FFFFFFFFFF",
+        "FFGFFFFFFF",
+        "FFFFFFFFGF",
+        "GGGGGGGGGG",
+        "FFFFFFFFFF",
+        "FFFFGFFFFF",
+        "FFFFFFFFFF",
+        "FGFFFFFFFF",
+        "GGGGGGGGGG"
+      ],
+      "themes": [
+        "city"
+      ]
+    },
+    "window": {
+      "solid": false,
+      "rows": [
+        "FFFFFFFFFF",
+        "FGGGGGGGGF",
+        "FGSSSSVSGF",
+        "FGSSSSSSGF",
+        "FGSSSSSSGF",
+        "FGSSSSSSGF",
+        "FGTTTTTTGF",
+        "FGGGGGGGGF",
+        "FFFFFFFFFF",
+        "GGGGGGGGGG"
+      ],
+      "themes": [
+        "city"
+      ]
+    },
+    "redbrick": {
+      "solid": false,
+      "rows": [
+        "CCCCXCCCCX",
+        "CCCCXCCCCX",
+        "XXXXXXXXXX",
+        "CXCCCCXCCC",
+        "CXCCCCXCCC",
+        "XXXXXXXXXX",
+        "CCCCXCCCCX",
+        "CCCCXCCCCX",
+        "XXXXXXXXXX",
+        "CXCCCCXCCC"
+      ],
+      "themes": [
+        "city"
+      ]
+    },
+    "streetlight": {
+      "solid": false,
+      "rows": [
+        "..........",
+        "...MMMM...",
+        "..MiiiiM..",
+        "...MMMM...",
+        "....MM....",
+        "....MM....",
+        "....MM....",
+        "....MM....",
+        "....MM....",
+        "...MMMM..."
+      ],
+      "themes": [
+        "city"
+      ]
+    },
+    "door": {
+      "solid": false,
+      "rows": [
+        "FFFFFFFFFF",
+        "FGGGGGGGGF",
+        "FGBBBBBBGF",
+        "FGBEEEEBGF",
+        "FGBEEEEBGF",
+        "FGBEEEEBGF",
+        "FGBEEEiBGF",
+        "FGBEEEEBGF",
+        "FGBEEEEBGF",
+        "GGBEEEEBGG"
+      ],
+      "themes": [
+        "city"
+      ]
+    },
+    "pole": {
+      "solid": false,
+      "rows": [
+        "....MM....",
+        "....MM....",
+        "....MM....",
+        "....MM....",
+        "....MM....",
+        "....MM....",
+        "....MM....",
+        "....MM....",
+        "....MM....",
+        "....MM...."
+      ],
+      "themes": [
+        "city"
+      ]
+    },
+    "crosswalk": {
+      "solid": true,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "3333ZZ3333",
+        "3333ZZ3333",
+        "3333ZZ3333",
+        "MMMMMMMMMM",
+        "ZZZZZZZZZZ",
+        "ZZZZZZZZZZ",
+        "ZZZZZZZZZZ",
+        "ZZZZZZZZZZ",
+        "ZZZZZZZZZZ",
+        "ZZZZZZZZZZ"
+      ]
+    },
+    "curb": {
+      "solid": true,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "IIIIIIIIII",
+        "IIIIIIIIII",
+        "JJJJJJJJJJ",
+        "MMMMMMMMMM",
+        "MMMMMMMMMM",
+        "MMMMMMMMMM",
+        "MMMMMMMMMM",
+        "MMMMMMMMMM",
+        "MMMMMMMMMM",
+        "MMMMMMMMMM"
+      ]
+    },
+    "wall_cream": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "AAAAAAAAAA",
+        "AAAAAAAALA",
+        "AALAAAAAAA",
+        "AAAAAAAAAA",
+        "LLLLLLLLLL",
+        "AAAAAAAAAA",
+        "AAAAAAALAA",
+        "AAAALAAAAA",
+        "AAAAAAAAAA",
+        "LLLLLLLLLL"
+      ]
+    },
+    "window_lit": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "FFFFFFFFFF",
+        "F00000000F",
+        "F03990390F",
+        "F09990990F",
+        "F09990990F",
+        "F09990990F",
+        "F00000000F",
+        "GGGGGGGGGG",
+        "FFFFFFFFFF",
+        "GGGGGGGGGG"
+      ]
+    },
+    "glass": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "8888888888",
+        "8667786677",
+        "8677787777",
+        "8777787777",
+        "8777787777",
+        "8888888888",
+        "8677786677",
+        "8777786777",
+        "8777787777",
+        "8777787777"
+      ]
+    },
+    "roof": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "..........",
+        "JJJJJJJJJJ",
+        "JJJJJJJJJJ",
+        "MMMMMMMMMM",
+        "FFFFFFFFFF",
+        "FFFFFFFFFF",
+        "FFFFFFFFFF",
+        "FFFFFFFFFF",
+        "FFFFFFFFFF",
+        "GGGGGGGGGG"
+      ]
+    },
+    "shop_front": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "LLLLLLLLLL",
+        "L66666666L",
+        "L63366666L",
+        "L63666666L",
+        "L6666***6L",
+        "L6446*i*6L",
+        "L6446***6L",
+        "L6446***6L",
+        "L&&&&&&&&L",
+        "LLLLLLLLLL"
+      ]
+    },
+    "awning": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "4433443344",
+        "4433443344",
+        "4433443344",
+        "4433443344",
+        "4A3A4A3A4A",
+        "LLLLLLLLLL",
+        "AAAAAAAAAA",
+        "AAAAAAAAAA",
+        "AAAAAAAAAA",
+        "AAAAAAAAAA"
+      ]
+    },
+    "signboard_blue": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "FFFFFFFFFF",
+        "FFFFFFFFFF",
+        "2222222222",
+        "1111111111",
+        "1333133331",
+        "1133113311",
+        "1111111111",
+        "2222222222",
+        "FFFFFFFFFF",
+        "FFFFFFFFFF"
+      ]
+    },
+    "glass_door": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "F00000000F",
+        "F76600667F",
+        "F76600667F",
+        "F76600667F",
+        "F77700777F",
+        "F77i00i77F",
+        "F77700777F",
+        "F77700777F",
+        "F77700777F",
+        "GGGGGGGGGG"
+      ]
+    },
+    "balcony": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "AAAAAAAAAA",
+        "AA333333AA",
+        "AA663366AA",
+        "AA663366AA",
+        "AA663366AA",
+        "@@@@@@@@@@",
+        "@AA@AA@AA@",
+        "@AA@AA@AA@",
+        "@AA@AA@AA@",
+        "LLLLLLLLLL"
+      ]
+    },
+    "ac_unit": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "FFFFFFFFFF",
+        "FFFFFFFFFF",
+        "FFFFFFFFFF",
+        "FF333333FF",
+        "FF=@@@@=FF",
+        "FF=@@@@=FF",
+        "FF=@==@=FF",
+        "FFFF7FFFFF",
+        "FFFF7FFFFF",
+        "FFFFFFFFFF"
+      ]
+    },
+    "shutter": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "@@@@@@@@@@",
+        "==========",
+        "@@@@@@@@@@",
+        "==========",
+        "@@@@@@@@@@",
+        "==========",
+        "@@@@@@@@@@",
+        "==========",
+        "@@@@++@@@@",
+        "=========="
+      ]
+    },
+    "station_wall": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "LLLLLLLLLL",
+        "AAAAAAAAAA",
+        "AAAAAAAAAA",
+        "AALAAAAAAA",
+        "AAAAAAAAAA",
+        "AAAAAAALAA",
+        "AAAAALAAAA",
+        "AAAAAAAAAA",
+        "AAAAAAAAAA",
+        "AAAAAAAAAA"
+      ]
+    },
+    "station_roof": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "..........",
+        "4444444444",
+        "5555555555",
+        "4444444444",
+        "4444444444",
+        "LLLLLLLLLL",
+        "AAAAAAAAAA",
+        "AAAAAAAAAA",
+        "AAAAAAAAAA",
+        "AAAAAAAAAA"
+      ]
+    },
+    "station_clock": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "LLLLLLLLLL",
+        "AAA----AAA",
+        "AA-3333-AA",
+        "A-33-333-A",
+        "A-33-333-A",
+        "A-33---3-A",
+        "A-333333-A",
+        "A-333333-A",
+        "AA-3333-AA",
+        "AAA----AAA"
+      ]
+    },
+    "station_gate": {
+      "solid": false,
+      "warp": true,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "3333333333",
+        "3333333333",
+        "3333333333",
+        "3333333333",
+        "3333333333",
+        "3333333333",
+        "3333333333",
+        "3333333333",
+        "3333333333",
+        "3333333333"
+      ]
+    },
+    "sign_eki_l": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "LLLLLLLLLL",
+        "2222222222",
+        "2111333111",
+        "2111111111",
+        "2113333311",
+        "2111113111",
+        "2111131111",
+        "2111313111",
+        "2113111331",
+        "2222222222"
+      ]
+    },
+    "sign_eki_r": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "LLLLLLLLLL",
+        "2222222222",
+        "1113111112",
+        "1133333112",
+        "1111311112",
+        "1133333112",
+        "1111131112",
+        "1131111112",
+        "1113331112",
+        "2222222222"
+      ]
+    },
+    "mailbox": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "..........",
+        "..........",
+        "...4444...",
+        "..444444..",
+        "..4----4..",
+        "..444444..",
+        "..444444..",
+        "..455554..",
+        "...@..@...",
+        "...@..@..."
+      ]
+    },
+    "trash": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "..........",
+        "..........",
+        "..........",
+        "..........",
+        ".@@@@@@@@.",
+        "..+====+..",
+        "..+=@@=+..",
+        "..+====+..",
+        "..+=@@=+..",
+        "..++++++.."
+      ]
+    },
+    "signal": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "...++++...",
+        "...+44+...",
+        "...+00+...",
+        "...+00+...",
+        "...++++...",
+        "....@@....",
+        "....@@....",
+        "....@@....",
+        "....@@....",
+        "....@@...."
+      ]
+    },
+    "signal_pole": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "....@@....",
+        "....@@....",
+        "....@@....",
+        "....@@....",
+        "....@@....",
+        "....@@....",
+        "....@@....",
+        "....@@....",
+        "....@@....",
+        "....@@...."
+      ]
+    },
+    "bus_stop": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "...1111...",
+        "..111111..",
+        "..133331..",
+        "..111111..",
+        "...1111...",
+        "....@@....",
+        "....@@....",
+        "....@@....",
+        "....@@....",
+        "....@@...."
+      ]
+    },
+    "flower_pot": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "..........",
+        "..........",
+        "..........",
+        "..~...i...",
+        ".~~~.iii..",
+        "..~..!i...",
+        "...!!!....",
+        ".....!....",
+        "..555555..",
+        "...5555..."
+      ]
+    },
+    "tree_leaves": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "!^!^!!^!^!",
+        "^^!#^!!#!!",
+        "#^#!^^!!!!",
+        "!!!^^!!!!!",
+        "!!!!!!!#!!",
+        "#^!!^!^!!!",
+        "#!!!!!##!!",
+        "#########!",
+        "^^^!^#!#^!",
+        "##########"
+      ]
+    },
+    "leaf_tl": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "......!^!!",
+        "....!!^^!!",
+        "...#!^!^!#",
+        "..!!^!!!!!",
+        ".##!!!!!!^",
+        ".!!!#!###!",
+        "!!!!!##!!!",
+        "^!#!!####!",
+        "######^^#!",
+        "^######^##"
+      ]
+    },
+    "leaf_tr": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "!!!!......",
+        "!!!!#!....",
+        "!!!#!##...",
+        "#^^!^!^!..",
+        "^!!^##!#!.",
+        "##^!!!!!!.",
+        "!!^!!!^#!#",
+        "##^#######",
+        "^#!#####^#",
+        "##^#^##!##"
+      ]
+    },
+    "leaf_bl": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "!#!#!!!!^^",
+        "^!!^^##!!!",
+        "!!^!!##!!#",
+        "!!^!!!!!^!",
+        ".!^^!!!!!!",
+        ".#!!#^!!^#",
+        "..!!^!!#!#",
+        "...!!^^###",
+        "....##!!!#",
+        "......!!##"
+      ]
+    },
+    "leaf_br": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "!#!!!#!!^!",
+        "#^#!#!!#!^",
+        "^!!!^!!#^!",
+        "#^#!#!!!#!",
+        "!!!^^#!#!.",
+        "!!!##!!##.",
+        "!^!!!!!^..",
+        "#!####!...",
+        "^#####....",
+        "#^!#......"
+      ]
+    },
+    "tree_trunk": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "...&%&&..."
+      ]
+    },
+    "utility_top": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        ".=..=..=..",
+        "%%%%%%%%%%",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&...."
+      ]
+    },
+    "utility_pole": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&....",
+        "....%&...."
+      ]
+    },
+    "fence": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "..........",
+        "..........",
+        "@@@@@@@@@@",
+        "@=...=...@",
+        "@...=...=@",
+        "@..=...=.@",
+        "@.=...=..@",
+        "@=...=...@",
+        "@@@@@@@@@@",
+        ".........."
+      ]
+    },
+    "billboard": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "FFFFFFFFFF",
+        "++++++++++",
+        "+~~~~~~~~+",
+        "+$$$$$$$$+",
+        "+$333333$+",
+        "+$$$$$$$$+",
+        "+$$3333$$+",
+        "+$$$$$$$$+",
+        "++++++++++",
+        "FFFFFFFFFF"
+      ]
+    },
+    "poster": {
+      "solid": false,
+      "interact": {
+        "text": true
+      },
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "FFFFFFFFFF",
+        "FF*4444*FF",
+        "FF444444FF",
+        "FF333333GF",
+        "GG3@@@@3GG",
+        "FF3@@@33FF",
+        "FF3@@@@3FF",
+        "FF333333FF",
+        "FG333333FF",
+        "GGGGGGGGGG"
+      ]
+    },
+    "poster_blue": {
+      "solid": false,
+      "interact": {
+        "text": true
+      },
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "FFFFFFFFFF",
+        "FF*1111*FF",
+        "FF111111FF",
+        "FF666666GF",
+        "GG633336GG",
+        "FF677336FF",
+        "FF633^^6FF",
+        "FF633336FF",
+        "FG666666FF",
+        "GGGGGGGGGG"
+      ]
+    },
+    "notice_board": {
+      "solid": false,
+      "interact": {
+        "text": true
+      },
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "FFFFFFFFFF",
+        "&&&&&&&&&&",
+        "&343%i4ii&",
+        "&333%iiii&",
+        "&333%%%%%&",
+        "&%%%33433&",
+        "&66633333&",
+        "&66633333&",
+        "&&&&&&&&&&",
+        "GGGGGGGGGG"
+      ]
+    },
+    "bench_l": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "..........",
+        ".&%%%%%%%%",
+        ".&%%%%%%%%",
+        ".&&&&&&&&&",
+        ".&........",
+        "%%%%%%%%%%",
+        "&&&&&&&&&&",
+        "..@@......",
+        "..@@......",
+        "..@@......"
+      ]
+    },
+    "bench_r": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "..........",
+        "%%%%%%%%&.",
+        "%%%%%%%%&.",
+        "&&&&&&&&&.",
+        "........&.",
+        "%%%%%%%%%%",
+        "&&&&&&&&&&",
+        "......@@..",
+        "......@@..",
+        "......@@.."
+      ]
+    },
+    "vending_tl": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        ".555555555",
+        ".444444444",
+        ".433333333",
+        ".46116**6!",
+        ".46116**6!",
+        ".46116**6!",
+        ".46116**6!",
+        ".46116**6!",
+        ".4========",
+        ".46336$$64"
+      ]
+    },
+    "vending_tr": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "555555555.",
+        "444444445.",
+        "3334++++5.",
+        "!664+ii+5.",
+        "!664+ii+5.",
+        "!664++++5.",
+        "!664+33+5.",
+        "!664+33+5.",
+        "===4++++5.",
+        "4664+11+5."
+      ]
+    },
+    "vending_ml": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        ".46336$$64",
+        ".46336$$64",
+        ".46336$$64",
+        ".46336$$64",
+        ".4========",
+        ".46116**6!",
+        ".46116**6!",
+        ".46116**6!",
+        ".46116**6!",
+        ".4========"
+      ]
+    },
+    "vending_mr": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "4664+11+5.",
+        "4664++++5.",
+        "4664+--+5.",
+        "4664+--+5.",
+        "===4+--+5.",
+        "!664++++5.",
+        "!664+99+5.",
+        "!664+99+5.",
+        "!664++++5.",
+        "===4++++5."
+      ]
+    },
+    "vending_bl": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        ".444444444",
+        ".444444444",
+        ".4--------",
+        ".4-@@@@@@@",
+        ".4-+++++++",
+        ".4-+++++++",
+        ".4--------",
+        ".444444444",
+        ".555555555",
+        ".555555555"
+      ]
+    },
+    "vending_br": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "444444445.",
+        "444444445.",
+        "---444445.",
+        "@@-4@@@@5.",
+        "++-4@@@@5.",
+        "++-444445.",
+        "---444445.",
+        "444444445.",
+        "555555555.",
+        "555555555."
+      ]
+    },
+    "glass_door_1x2_t": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "F00000000F",
+        "F07777770F",
+        "F06677770F",
+        "F07667770F",
+        "F07766770F",
+        "F07777770F",
+        "F07777770F",
+        "F07777770F",
+        "F06677770F",
+        "F07667770F"
+      ]
+    },
+    "glass_door_1x2_b": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "F07766i70F",
+        "F07777i70F",
+        "F07777770F",
+        "F07777770F",
+        "F06677770F",
+        "F07667770F",
+        "F07766770F",
+        "F07777770F",
+        "F07777770F",
+        "GGGGGGGGGG"
+      ]
+    },
+    "glass_door_2x2_tl": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "F000000000",
+        "F077777770",
+        "F067777770",
+        "F076777770",
+        "F077677770",
+        "F077777770",
+        "F077777770",
+        "F077777770",
+        "F067777770",
+        "F076777770"
+      ]
+    },
+    "glass_door_2x2_tr": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "000000000F",
+        "077777770F",
+        "077677770F",
+        "077767770F",
+        "077776770F",
+        "077777770F",
+        "077777770F",
+        "077777770F",
+        "077677770F",
+        "077767770F"
+      ]
+    },
+    "glass_door_2x2_bl": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "F0776777i0",
+        "F0777777i0",
+        "F077777770",
+        "F077777770",
+        "F067777770",
+        "F076777770",
+        "F077677770",
+        "F077777770",
+        "F077777770",
+        "GGGGGGGGGG"
+      ]
+    },
+    "glass_door_2x2_br": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "0i7776770F",
+        "0i7777770F",
+        "077777770F",
+        "077777770F",
+        "077677770F",
+        "077767770F",
+        "077776770F",
+        "077777770F",
+        "077777770F",
+        "GGGGGGGGGG"
+      ]
+    },
+    "glass_door_1x2_flip_t": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "F00000000F",
+        "F07777770F",
+        "F07777660F",
+        "F07776670F",
+        "F07766770F",
+        "F07777770F",
+        "F07777770F",
+        "F07777770F",
+        "F07777660F",
+        "F07776670F"
+      ]
+    },
+    "glass_door_1x2_flip_b": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "F07i66770F",
+        "F07i77770F",
+        "F07777770F",
+        "F07777770F",
+        "F07777660F",
+        "F07776670F",
+        "F07766770F",
+        "F07777770F",
+        "F07777770F",
+        "GGGGGGGGGG"
+      ]
+    },
+    "door_1x2_t": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "FFFFFFFFFF",
+        "FEBEEEEBEF",
+        "FEBBBBBBEF",
+        "FEBBEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBBBBBEF",
+        "FEBEEEEBEF"
+      ]
+    },
+    "door_1x2_b": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "FEBEEEEBEF",
+        "FEBBBBiBEF",
+        "FEBBEEiBEF",
+        "FEBBEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBBBBBEF",
+        "FEBEEEEBEF",
+        "GEBEEEEBEG"
+      ]
+    },
+    "door_1x2_flip_t": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "FFFFFFFFFF",
+        "FEBEEEEBEF",
+        "FEBBBBBBEF",
+        "FEBBEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBBBBBEF",
+        "FEBEEEEBEF"
+      ]
+    },
+    "door_1x2_flip_b": {
+      "solid": false,
+      "themes": [
+        "city"
+      ],
+      "rows": [
+        "FEBEEEEBEF",
+        "FEBiBBBBEF",
+        "FEBiEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBEEBBEF",
+        "FEBBBBBBEF",
+        "FEBEEEEBEF",
+        "GEBEEEEBEG"
+      ]
+    }
+  }
+}
