@@ -25,6 +25,7 @@ async function start() {
   const touch = initMobile();                  // 全画面ボタンとタッチ操作は、タイトル・ストーリーでも使えるように最初に準備
   let stageId = params.get('stage');
   let rta = !!stageId && params.has('rta');
+  let gamePaused = false;                      // 止めている間（エディタ・「タイトルへ戻る」の確認）
   let showHelp = false;                        // ストーリーを見た後は、ゲーム画面の上に操作説明を出す
   if (!stageId) {
     bgm.play('forest');                       // タイトル・ストーリー・森のあいだは forest_bgm
@@ -174,7 +175,7 @@ async function start() {
 
   // ---- やられたとき ----
   // 針・鍾乳石に当たる → 少し止まって点滅 + 破片が飛び散る + 画面が揺れる → 中間地点へ
-  let parts = [], shake = 0, deathsHere = 0, lastTaunt = -1e9;
+  let parts = [], shake = 0, deathsHere = 0;
   player.onHazard = () => {
     rec.deaths++; saveRun();                                    // 針・鍾乳石でやられた回数
     deathsHere++;
@@ -188,15 +189,6 @@ async function start() {
     }
   };
   player.onCheckpoint = () => { deathsHere = 0; };
-  // 同じ中間地点から何度もやられていると、たまに TOO さんが煽ってくる（data/story.json の taunts）
-  player.onRespawn = () => {
-    const lines = story.taunts ?? [];
-    const now = performance.now();
-    if (lines.length && deathsHere >= 5 && Math.random() < 0.3 && now - lastTaunt > 60000) {
-      lastTaunt = now;
-      toast = { text: lines[Math.floor(Math.random() * lines.length)], time: 1e9, sub: true, born: now, x: player.x };
-    }
-  };
   function updateFx(dt) {
     shake = Math.max(0, shake - dt);
     for (const p of parts) { p.vy += 600 * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.life -= dt; }
@@ -208,6 +200,12 @@ async function start() {
     player.respawn();
   }
   document.getElementById('btn-retry')?.addEventListener('pointerdown', e => { e.preventDefault(); retry(); });
+  // はじめから（スマホ）: 「タイトルへ戻りますか？」→「はい」でタイトル画面へ（ページを読み直す）
+  const confirmEl = document.getElementById('confirm');
+  const askTitle = open => { gamePaused = open; confirmEl.hidden = !open; };
+  document.getElementById('btn-restart')?.addEventListener('pointerdown', e => { e.preventDefault(); if (!cleared) askTitle(true); });
+  document.getElementById('confirm-no')?.addEventListener('pointerdown', e => { e.preventDefault(); askTitle(false); });
+  document.getElementById('confirm-yes')?.addEventListener('pointerdown', e => { e.preventDefault(); bgm.leave(); location.href = location.pathname; });
   document.body.classList.add('ingame');
 
 
