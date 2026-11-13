@@ -2,7 +2,8 @@ import { createBackground } from './background.js';
 import { World } from './world.js';
 import { Player, buildCharacterSprites } from './player.js';
 import { initMobile } from './mobile.js';
-import { runIntro, runStory } from './title.js';
+import { runIntro, runStory, runHelp } from './title.js';
+import { addRecord, keepRecords } from './records.js';
 import { rowsToCanvas } from './sprites.js';
 import { bgm, sfx } from './bgm.js';
 
@@ -24,10 +25,12 @@ async function start() {
   const touch = initMobile();                  // 全画面ボタンとタッチ操作は、タイトル・ストーリーでも使えるように最初に準備
   let stageId = params.get('stage');
   let rta = !!stageId && params.has('rta');
+  let showHelp = false;                        // ストーリーを見た後は、ゲーム画面の上に操作説明を出す
   if (!stageId) {
     bgm.play('forest');                       // タイトル・ストーリー・森のあいだは forest_bgm
     stageId = (await getJSON('data/stages.json')).first;
     const choice = await runIntro({ canvas, getJSON });
+    showHelp = !choice;
     if (choice?.rta) {
       stageId = choice.rta; rta = true;
       history.replaceState(null, '', `?stage=${encodeURIComponent(stageId)}&rta=1`);    // 読み直すと同じ RTA をやり直せる
@@ -101,7 +104,7 @@ async function start() {
   // ---- 入力 ----
   const keys = new Set();
   addEventListener('keydown', e => {
-    if ((e.key === 'r' || e.key === 'R') && !e.repeat) player.respawn();      // やり直し
+    if ((e.key === 'r' || e.key === 'R') && !e.repeat) retry();      // やり直し
     if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '].includes(e.key)) e.preventDefault();
     keys.add(e.key.length === 1 ? e.key.toLowerCase() : e.key);
   });
@@ -153,7 +156,13 @@ async function start() {
   // ステージクリア（ゴール / 落とし穴 / 駅の入口）: タイムを止めて記録する
   function clearStage(extra = {}) {
     if (cleared) return;
-    cleared = { t: 0, rt: 0, phase: finalStage ? (ending.length ? 'fade' : 'result') : null, ...extra };
+    // 記録: RTA ならそのステージのタイム / 通しで遊んだなら合計タイムを、ベスト3に登録
+    let rank = 0;
+    if (finalStage && (rta || run.stages[stageList.first])) {      // 通しの記録は、最初のステージから遊んだときだけ
+      rank = addRecord(rta ? stageId : 'all', rta ? rec.time : allStages().reduce((a, r) => a + (r.time || 0), 0));
+      keepRecords();
+    }
+    cleared = { t: 0, rt: 0, rank, phase: finalStage ? (ending.length ? 'fade' : 'result') : null, ...extra };
     if (finalStage) { toast.time = 0; bgm.play('forest', 0.8); }   // 結果画面に字幕が重ならないよう消す / ゴールしたら forest_bgm
     // 次のステージで曲が変わる（森 → 洞窟）ときは、切り替わる前に一瞬フェードアウト
     if (!finalStage && nextTrack && nextTrack !== (stage.theme === 'cave' ? 'cave' : 'forest')) bgm.fadeOut(0.9);
@@ -163,7 +172,43 @@ async function start() {
   if (stage.next) getJSON(`data/stages/${stage.next}.json`).then(n => { nextTrack = n.theme === 'cave' ? 'cave' : 'forest'; }).catch(() => {});
   player.onFall = () => clearStage({ walk: !world.hitsFlag(player.x, player.y, cfg.hitboxW, cfg.hitboxH, 'fall') && world.hitsFlag(player.x, player.y, cfg.hitboxW, cfg.hitboxH, 'warp') });      // walk=駅の入口: 左右キーを押している間は歩き続けたまま切り替わる / 落とし穴 → 暗転して次のステージへ
 
-  player.onHazard = () => { rec.deaths++; saveRun(); };       // 針・鍾乳石でやられた回数
+  // ---- やられたとき ----
+  // 針・鍾乳石に当たる → 少し止まって点滅 + 破片が飛び散る + 画面が揺れる → 中間地点へ
+  let parts = [], shake = 0, deathsHere = 0, lastTaunt = -1e9;
+  player.onHazard = () => {
+    rec.deaths++; saveRun();                                    // 針・鍾乳石でやられた回数
+    deathsHere++;
+    shake = 0.25;
+    const cx = player.x + cfg.hitboxW / 2, cy = player.y + cfg.hitboxH / 2;
+    // 黒・白・グレーが中心の、ところどころ虹色の破片
+    const mono = ['#000000', '#ffffff', '#8a8a8a', '#3a3a3a', '#cfcfcf'], rainbow = ['#ff4d4d', '#ffa23a', '#ffe34a', '#4fd36a', '#4aa8ff', '#9a6bff'];
+    for (let i = 0; i < 22; i++) {
+      const a = Math.random() * Math.PI * 2, v = 80 + Math.random() * 160;
+      parts.push({ x: cx, y: cy, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 80, life: 0.5 + Math.random() * 0.3, c: i % 3 === 2 ? rainbow[(i / 3 | 0) % rainbow.length] : mono[i % mono.length] });
+    }
+  };
+  player.onCheckpoint = () => { deathsHere = 0; };
+  // 同じ中間地点から何度もやられていると、たまに TOO さんが煽ってくる（data/story.json の taunts）
+  player.onRespawn = () => {
+    const lines = story.taunts ?? [];
+    const now = performance.now();
+    if (lines.length && deathsHere >= 5 && Math.random() < 0.3 && now - lastTaunt > 60000) {
+      lastTaunt = now;
+      toast = { text: lines[Math.floor(Math.random() * lines.length)], time: 1e9, sub: true, born: now, x: player.x };
+    }
+  };
+  function updateFx(dt) {
+    shake = Math.max(0, shake - dt);
+    for (const p of parts) { p.vy += 600 * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.life -= dt; }
+    parts = parts.filter(p => p.life > 0);
+  }
+  // やり直し（R キー / スマホの左上のボタン）: 最後の中間地点へ
+  function retry() {
+    if (cleared || player.dying || player.fell) return;
+    player.respawn();
+  }
+  document.getElementById('btn-retry')?.addEventListener('pointerdown', e => { e.preventDefault(); retry(); });
+  document.body.classList.add('ingame');
 
 
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -182,10 +227,10 @@ async function start() {
 
   // ---- アクション（宝箱を開ける・出口に入る など）----
   let interactTarget = null;            // 今その場で実行できるイベント
+  let ladderHint = null;                // 降りられる梯子の上に立っているとき {col,row}
   let cleared = null;                   // ステージクリア後の状態 {t}
   const passSeen = new Set();           // 通過で字幕が出た透明マス（1回だけ出す）
   let titleT = stage.title ? 3.2 : 0;   // ステージ開始時のタイトル表示（"SECOND STAGE" など）
-  const actionButton = document.getElementById('btn-action');
 
   function updateInteract(input, dt) {
     interactTarget = world.findInteractable(player.x, player.y, cfg.hitboxW, cfg.hitboxH);
@@ -212,7 +257,8 @@ async function start() {
     if (toast.sub && (input.dir !== 0 || input.jump || input.up || Math.abs(player.x - toast.x) > 1)) toast.time = 0;      // 動いたら字幕を消す
     toast.time = Math.max(0, toast.time - dt);
     titleT = Math.max(0, titleT - dt);
-    actionButton.classList.toggle('ready', !!interactTarget && !cleared);
+    // 梯子の上に立っている: ↓（スマホは ● か、パッドを押したまま下へ）で降りられることを知らせる
+    ladderHint = !interactTarget && !cleared && !player.climbing && player.onGround && !player.dying ? player.ladderBelow() : null;
   }
 
   // 実行できるイベントの上に出す吹き出し（丸に点 = アクションボタンと同じ絵）
@@ -224,6 +270,23 @@ async function start() {
     ctx.beginPath(); ctx.arc(x, y, 9, 0, Math.PI * 2); ctx.stroke();
     ctx.fillStyle = '#ffd23f';
     ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill();
+  }
+
+  const images = {};                    // 字幕に出す画像（[img:パス]）
+  function loadImage(src) {
+    if (!images[src]) { images[src] = new Image(); images[src].src = src; }
+    return images[src];
+  }
+
+  // 梯子の上: 下向きの矢印の吹き出し
+  function drawLadderHint({ col: c, row: r }) {
+    const x = (c + 0.5) * world.T, y = r * world.T + 14 + Math.round(Math.sin(performance.now() / 200) * 2);
+    ctx.fillStyle = 'rgba(0,0,0,0.6)';
+    ctx.beginPath(); ctx.arc(x, y, 9, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#ffd23f'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(x, y, 9, 0, Math.PI * 2); ctx.stroke();
+    ctx.fillStyle = '#ffd23f';
+    ctx.beginPath(); ctx.moveTo(x - 5, y - 2); ctx.lineTo(x + 5, y - 2); ctx.lineTo(x, y + 4); ctx.closePath(); ctx.fill();
   }
 
   function drawToast(vw, vh) {
@@ -238,18 +301,35 @@ async function start() {
       ctx.fillStyle = 'rgba(0,0,0,0.5)'; ctx.fillRect(30, vh - 140, vw - 60, 110);
       ctx.strokeStyle = '#ffe9a0'; ctx.lineWidth = 2; ctx.strokeRect(31, vh - 139, vw - 62, 108);
       ctx.font = 'bold 18px sans-serif'; ctx.textAlign = 'left'; ctx.fillStyle = '#ffffff';
-      const chars = [...toast.text], n = Math.min(chars.length, Math.floor((performance.now() - toast.born) / 1000 * 28));
+      // 文章の中の [tile:タイル名] / [img:画像のパス] は、字幕の左側に絵として出す（看板の説明など）
+      if (!toast.parsed) {
+        const imgs = [];
+        const text = toast.text.replace(/\[(tile|img):([^\]]+)\]/g, (_, k, v) => { imgs.push({ k, v: v.trim() }); return ''; }).replace(/^\s*\n/, '');
+        toast.parsed = { text, imgs };
+      }
+      let tx = 50;
+      for (const im of toast.parsed.imgs) {
+        const src = im.k === 'tile' ? world.sprites[im.v] : loadImage(im.v);
+        if (!src || (src instanceof HTMLImageElement && !src.complete)) continue;
+        const sw = src.naturalWidth || src.width, sh = src.naturalHeight || src.height;
+        const k = im.k === 'tile' ? 2 : Math.min(90 / sh, 180 / sw);
+        const w = Math.round(sw * k), h = Math.round(sh * k);
+        ctx.drawImage(src, tx - 6, vh - 85 - h / 2, w, h);
+        tx += w + 6;
+      }
+      if (tx > 50) tx += 8;
+      const chars = [...toast.parsed.text], n = Math.min(chars.length, Math.floor((performance.now() - toast.born) / 1000 * 28));
       if (toast.n === undefined || toast.born !== toast.bornSeen) { toast.n = 0; toast.bornSeen = toast.born; }
       if (n > toast.n && /\S/.test(chars[n - 1])) sfx.text();
       toast.n = n;
-      const maxW = vw - 100;
+      const maxW = vw - 50 - tx;
       let lineW = 0, line = 0;
       for (let i = 0; i < n; i++) {
         const c = chars[i];
         if (c === '\n') { line++; lineW = 0; continue; }
         const cw = ctx.measureText(c).width;
         if (lineW + cw > maxW) { line++; lineW = 0; }
-        ctx.fillText(c, 50 + lineW, vh - 106 + line * 28);
+        ctx.fillText(c, tx + lineW, vh - 106 + line * 28);
         lineW += cw;
       }
       ctx.restore();
@@ -363,6 +443,7 @@ async function start() {
     if (t >= 1.0) {
       ctx.fillStyle = '#ffffff'; ctx.font = 'bold 13px sans-serif'; ctx.fillText('クリアタイム', vw / 2, 78);
       ctx.fillStyle = '#ffd23f'; ctx.font = 'bold 32px monospace'; ctx.fillText(fmtTime(time), vw / 2, 112);
+      if (cleared.rank === 1) { ctx.fillStyle = '#7fe0ff'; ctx.font = 'bold 13px sans-serif'; ctx.fillText('新記録', vw / 2, 129); }
     }
     if (t >= 1.4) {
       ctx.fillStyle = '#ffffff'; ctx.font = 'bold 13px sans-serif'; ctx.fillText('開けた宝箱', vw / 2, 142);
@@ -408,13 +489,16 @@ async function start() {
       for (let x = -off; x < vw; x += far.width) ctx.drawImage(far, x, -camera.y);
     }
     // 地面・足場
-    ctx.drawImage(world.layer, camera.x, camera.y, vw, vh, 0, 0, vw, vh);
+    const sx = shake > 0 ? Math.round((Math.random() - 0.5) * 8 * shake / 0.25) : 0, sy = shake > 0 ? Math.round((Math.random() - 0.5) * 8 * shake / 0.25) : 0;   // やられたときの揺れ
+    ctx.drawImage(world.layer, camera.x, camera.y, vw, vh, sx, sy, vw, vh);
     // 動くもの・キャラ（ワールド座標）
     ctx.save();
-    ctx.translate(-camera.x, -camera.y);
+    ctx.translate(-camera.x + sx, -camera.y + sy);
     for (const c of world.crates) c.draw(ctx, world.sprites.crate);
     if (interactTarget && !cleared) drawBubble(interactTarget);     // 吹き出しはキャラの後ろ
     player.draw(ctx);
+    for (const p of parts) { ctx.globalAlpha = Math.min(1, p.life / 0.2); ctx.fillStyle = p.c; ctx.fillRect(Math.round(p.x) - 2, Math.round(p.y) - 2, 4, 4); }
+    ctx.globalAlpha = 1;
     ctx.restore();
     drawDarkness(vw, vh);
     drawGlows();
@@ -426,10 +510,12 @@ async function start() {
 
   // ---- ループ ----
   let last = performance.now();
+  let helping = false;                 // 操作説明を表示中: マップだけ描いて止める
   function frame(now) {
     const rawDt = (now - last) / 1000;
     const dt = Math.min(0.05, rawDt);
     last = now;
+    if (helping) { draw(); requestAnimationFrame(frame); return; }
 
     let input = readInput();
     // タイム: ステージが始まってからクリアするまで
@@ -437,8 +523,8 @@ async function start() {
     if (cleared) {
       // クリア後は操作を受け付けない。しばらくしたら次のステージへ（最後なら結果画面→アクションでタイトルへ）
       if (cleared.done && !cleared.going) {
-        if (input.action) { cleared.going = true; location.assign(location.pathname); }
-        else if (rta && keys.has('r')) { cleared.going = true; location.reload(); }        // RTA をもう一度
+        if (input.action) { cleared.going = true; bgm.leave(); location.assign(location.pathname); }
+        else if (rta && keys.has('r')) { cleared.going = true; bgm.leave(); location.reload(); }        // RTA をもう一度
       }
       input = cleared.walk ? { ...input, jump: false, jumpHeld: false, action: false } : { dir: 0, jump: false, jumpHeld: false, action: false };
       cleared.t += dt;
@@ -446,6 +532,7 @@ async function start() {
       if (cleared.t > 1.1 && !finalStage && !cleared.going) {
         cleared.going = true;
         params.set('stage', stage.next);
+        bgm.leave();                                   // 前のステージの曲を止めてから移る（次のページで続きから流す）
         location.search = params.toString();
       }
       if (cleared.t > 1.1 && cleared.phase === 'fade') {
@@ -461,6 +548,7 @@ async function start() {
         return;
       }
     }
+    updateFx(dt);
     world.updateEntities(dt, player);
     player.update(dt, input);
     updateInteract(input, dt);
@@ -469,6 +557,13 @@ async function start() {
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
+  if (showHelp) {
+    updateCamera();                            // カメラを先に合わせる（ずれ防止）
+    helping = true;                            // 操作説明の間は、街のマップを表示したまま止める（TUTORIAL は閉じた後に出る）
+    await runHelp();
+    helping = false;
+    keys.clear(); last = performance.now();
+  }
 }
 
 start().catch(err => {

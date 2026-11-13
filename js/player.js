@@ -1,6 +1,8 @@
 import { rowsToCanvas } from './sprites.js';
 import { sfx } from './bgm.js';
 
+const DIE_TIME = 0.45;     // やられてから中間地点に戻るまでの秒数
+
 // キャラクターのスプライト（data/character.json）を canvas に変換
 export function buildCharacterSprites(data) {
   const sprites = {};
@@ -35,6 +37,7 @@ export class Player {
     this.climbing = false;
     this.climbDist = 0;
     this.lastJump = null;   // 直近ジャンプの実測値 {height, time}
+    this.dying = 0;         // やられた演出の残り秒数（0 より大きい間は動けない）
     this.world.resetEntities?.();                 // 箱は最後の中間地点を通ったときの位置に戻す
     this.onDeath?.();
   }
@@ -138,6 +141,12 @@ export class Player {
 
   update(dt, input) {
     const cfg = this.cfg;
+    // やられた演出: 少しだけ止まって点滅 → 中間地点へ（さくさく再開できる短さ）
+    if (this.dying > 0) {
+      this.dying -= dt;
+      if (this.dying <= 0) { this.dying = 0; this.respawn(); this.onRespawn?.(); }
+      return;
+    }
     this.checkCheckpoint();
 
     // 梯子: ↑で掴む（体が梯子に重なっているとき）、梯子の上に立っているときは↓で降りる
@@ -228,9 +237,9 @@ export class Player {
   // 落とし穴・針に触れた / 画面の下に落ちた → 中間地点（またはスポーン地点）へ戻る
   checkDeath() {
     const { world, cfg } = this;
-    if (this.fell) return;                                           // 穴に落ちて次のステージへ向かっている最中
+    if (this.fell || this.dying) return;                                           // 穴に落ちて次のステージへ向かっている最中
     if (world.hitsFall(this.x, this.y, cfg.hitboxW, cfg.hitboxH)) { this.fell = true; this.onFall?.(); return; }
-    if (world.hitsHazard(this.x, this.y, cfg.hitboxW, cfg.hitboxH)) { this.onHazard?.(); this.respawn(); }
+    if (world.hitsHazard(this.x, this.y, cfg.hitboxW, cfg.hitboxH)) { this.dying = DIE_TIME; this.vx = 0; this.vy = 0; sfx.die(); this.onHazard?.(); }
     else if (this.y > world.height + 60) this.respawn();
   }
 
@@ -298,6 +307,7 @@ export class Player {
 
   draw(ctx) {
     const { cfg, sprites } = this;
+    if (this.dying > 0 && Math.floor(this.dying / 0.06) % 2 === 0) return;     // やられた: 点滅
     const sw = sprites.stand.width, sh = sprites.stand.height;
     const px = Math.round(this.x + cfg.hitboxW / 2 - sw / 2);
     const py = Math.round(this.y + cfg.hitboxH - sh);

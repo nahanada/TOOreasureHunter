@@ -2017,6 +2017,54 @@
         "GGGGGGGGGG"
       ]
     },
+    "cave_sign": {
+      "solid": false,
+      "interact": {
+        "text": true
+      },
+      "themes": [
+        "cave",
+        "forest",
+        "field",
+        "city"
+      ],
+      "rows": [
+        "..........",
+        "DDDDDDDDDD",
+        "DRRRRRRRRD",
+        "DEqqqEqqED",
+        "DEEEEEEEED",
+        "DEqqEqqqED",
+        "DEEEEEEEED",
+        "DDDDDDDDDD",
+        "....DD....",
+        "....DD...."
+      ]
+    },
+    "cave_sign_warn": {
+      "solid": false,
+      "interact": {
+        "text": true
+      },
+      "themes": [
+        "cave",
+        "forest",
+        "field",
+        "city"
+      ],
+      "rows": [
+        "..........",
+        "DDDDDDDDDD",
+        "DyyyyyyyyD",
+        "DyyyDDyyyD",
+        "DyyyDDyyyD",
+        "DyyyDDyyyD",
+        "DyyyyyyyyD",
+        "DyyyDDyyyD",
+        "DDDDDDDDDD",
+        "....DD...."
+      ]
+    },
     "bench_l": {
       "solid": false,
       "themes": [

@@ -105,5 +105,22 @@
    "aba.aba.aba.aba.aba",
    "aaa.aaa.aaa.aaa.aaa"
   ]
+ },
+ "records": {
+  "width": 43,
+  "height": 7,
+  "palette": {
+   "a": "#222222",
+   "b": "#ffffff"
+  },
+  "rows": [
+   "aaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaa.aaaaaa",
+   "abbbbaabbbbbaabbbaaabbbaabbbbaabbbbaaabbbba",
+   "abaaababaaaaabaaababaaababaaababaaababaaaaa",
+   "abbbbaabbbbaaba.aaaba.ababbbbaaba.abaabbbaa",
+   "abaaababaaaaabaaababaaababaaababaaabaaaaaba",
+   "aba.ababbbbbaabbbaaabbbaaba.ababbbbaabbbbaa",
+   "aaa.aaaaaaaaaaaaaa.aaaaaaaa.aaaaaaaaaaaaaa."
+  ]
  }
 }

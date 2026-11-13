@@ -13,7 +13,7 @@ try {
 
 const cache = {};                       // 名前 → Promise<{intro, loop}>
 let cur = null, startedAt = 0, fresh = false;
-let playing = null, token = 0, pendingFade = 0;          // playing: いま鳴っている { gain, nodes }
+let playing = null, token = 0, pendingFade = 0, leaving = false;          // playing: いま鳴っている { gain, nodes }
 
 try {
   // ブラウザの更新（F5 など）のときは続きではなく、曲の最初から流す
@@ -51,7 +51,7 @@ async function begin() {
   const my = ++token, name = cur;
   let bufs;
   try { bufs = await load(name); } catch { return; }
-  if (my !== token || ctx.state !== 'running') return;
+  if (my !== token || leaving || ctx.state !== 'running') return;
   stopCurrent();
   if (fresh) { startedAt = Date.now(); fresh = false; save(); }      // 最初の操作が来た時点から流し始める
   const gain = ctx.createGain(); gain.connect(master);
@@ -70,8 +70,21 @@ async function begin() {
   playing = { gain, nodes };
 }
 
-function wake() { if (ctx && ctx.state !== 'running') ctx.resume().catch(() => {}); }
+// いま鳴っている音をすぐに全部止める（ページを離れるとき。前のページの曲が次のページと重ならないように）
+function stopNow() {
+  token++;
+  if (playing) { for (const n of playing.nodes) try { n.stop(); } catch { /* 無視 */ } playing = null; }
+}
+function wake() { if (ctx && !leaving && !document.hidden && ctx.state !== 'running') ctx.resume().catch(() => {}); }
 if (ctx) {
+  // ページを離れる（ステージ切り替えの読み直し・戻る・閉じる）→ 止める。戻ってきたら続きから
+  addEventListener('pagehide', () => { leaving = true; stopNow(); ctx.suspend().catch(() => {}); });
+  addEventListener('pageshow', e => { if (e.persisted) { leaving = false; wake(); } });
+  // 別のタブ・アプリに切り替えたら止め、戻ったら続きから（曲の位置は時計で進んでいる）
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { stopNow(); ctx.suspend().catch(() => {}); }
+    else wake();
+  });
   ctx.onstatechange = () => { if (ctx.state === 'running' && cur && !playing) begin(); };
   for (const ev of ['pointerdown', 'keydown', 'touchend']) addEventListener(ev, wake, { passive: true });
 }
@@ -88,6 +101,8 @@ export const bgm = {
     }
     if (!playing) begin();
   },
+  // ページを移る直前に呼ぶ: すぐに全部止める
+  leave() { if (!ctx) return; leaving = true; stopNow(); ctx.suspend().catch(() => {}); },
   // いま鳴っている曲を sec 秒でフェードアウト（ステージの切り替え前に使う）
   fadeOut(sec = 0.6) {
     if (!ctx || !playing) return;
@@ -106,5 +121,6 @@ function blip(type, f0, f1, dur, vol) {
 }
 export const sfx = {
   jump: () => blip('square', 260, 620, 0.13, 0.035),
+  die: () => { blip('square', 520, 90, 0.28, 0.05); blip('triangle', 300, 60, 0.3, 0.05); },   // やられたとき
   text: () => blip('square', 700 + Math.random() * 120, 640, 0.04, 0.018),     // 字幕の文字が出るたび
 };

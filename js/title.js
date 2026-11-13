@@ -5,6 +5,7 @@
 
 import { rowsToCanvas } from './sprites.js';
 import { sfx } from './bgm.js';
+import { RECORD_BOARDS, fmtTime, loadRecords } from './records.js';
 
 const LW = 210, LH = 120, S = 3;         // 低解像度のドット絵 210x120 を 3倍に拡大 = 630x360（ゲームの見える範囲と同じ）
 
@@ -236,12 +237,21 @@ export async function runTitle({ canvas, cfg, logo, rtaList = [] }) {
     rc.width = logo.rta.width; rc.height = logo.rta.height;
     paint(logo.rta, rc.getContext('2d'));
   }
-  const RTA_X = 4, RTA_Y = LH - (logo.rta?.height ?? 7) - 4;          // 低解像度での位置
-  const rtaHit = { x: RTA_X * S - 9, y: RTA_Y * S - 9, w: (logo.rta?.width ?? 0) * S + 18, h: (logo.rta?.height ?? 0) * S + 18 };   // 押せる範囲（630x360 の座標）
-  const MENU = { x: 12, y: 360 - 58 - rtaList.length * 34 - 8, w: 230, row: 34 };
+  // 「RECORDS」の文字（RTA の下）。押すとベスト3の記録を見られる
+  let kc = null;
+  if (logo.records) {
+    kc = document.createElement('canvas');
+    kc.width = logo.records.width; kc.height = logo.records.height;
+    paint(logo.records, kc.getContext('2d'));
+  }
+  const REC_X = 4, REC_Y = LH - (logo.records?.height ?? 7) - 4;
+  const RTA_X = 4, RTA_Y = REC_Y - (logo.rta?.height ?? 7) - 5;          // 低解像度での位置（RTA は RECORDS の少し上）
+  const recHit = { x: REC_X * S - 9, y: REC_Y * S - 7, w: (logo.records?.width ?? 0) * S + 18, h: (logo.records?.height ?? 0) * S + 14 };
+  const rtaHit = { x: RTA_X * S - 9, y: RTA_Y * S - 7, w: (logo.rta?.width ?? 0) * S + 18, h: (logo.rta?.height ?? 0) * S + 14 };   // 押せる範囲（630x360 の座標）
+  const MENU = { x: 12, y: RTA_Y * S - 10 - 8 - rtaList.length * 34, w: 230, row: 34 };
   const optRect = i => ({ x: MENU.x + 8, y: MENU.y + 4 + i * MENU.row, w: MENU.w - 16, h: MENU.row - 4 });
   const inside = (p, r) => p.x >= r.x && p.x <= r.x + r.w && p.y >= r.y && p.y <= r.y + r.h;
-  let menu = false, sel = 0, choice;
+  let menu = false, sel = 0, choice, recView = null;      // recView: 記録画面を開いているとき、保存してある記録
 
   let go = false, fade = 0;
   const t0 = performance.now();
@@ -254,6 +264,7 @@ export async function runTitle({ canvas, cfg, logo, rtaList = [] }) {
   const onPointer = e => {
     if (go || performance.now() - t0 < 250 || e.target?.id === 'btn-fs') return;
     const p = toLogical(e);
+    if (recView) { recView = null; return; }                       // 記録画面はどこを押しても閉じる
     if (menu) {
       const i = rtaList.findIndex((_, k) => inside(p, optRect(k)));
       if (i >= 0) start(rtaList[i].id);
@@ -261,6 +272,7 @@ export async function runTitle({ canvas, cfg, logo, rtaList = [] }) {
       return;
     }
     if (rc && inside(p, rtaHit)) { menu = true; sel = 0; return; }
+    if (kc && inside(p, recHit)) { recView = loadRecords(); return; }
     start();
   };
   const onMove = e => {
@@ -270,6 +282,7 @@ export async function runTitle({ canvas, cfg, logo, rtaList = [] }) {
   };
   const onKey = e => {
     if (go || performance.now() - t0 < 250 || ignoreKey(e)) return;
+    if (recView) { recView = null; e.preventDefault(); return; }
     if (menu) {
       if (e.key === 'ArrowUp' || e.key === 'w') sel = (sel + rtaList.length - 1) % rtaList.length;
       else if (e.key === 'ArrowDown' || e.key === 's') sel = (sel + 1) % rtaList.length;
@@ -279,6 +292,7 @@ export async function runTitle({ canvas, cfg, logo, rtaList = [] }) {
       return;
     }
     if (rc && (e.key === 'r' || e.key === 'R')) { menu = true; sel = 0; return; }   // R キーでも RTA メニュー
+    if (kc && (e.key === 'c' || e.key === 'C')) { recView = loadRecords(); return; }   // C キーで記録
     start();
   };
   addEventListener('pointerdown', onPointer);
@@ -295,6 +309,28 @@ export async function runTitle({ canvas, cfg, logo, rtaList = [] }) {
       ctx.fillStyle = i === sel ? '#ffe9a0' : '#ffffff'; ctx.font = 'bold 17px sans-serif';
       ctx.fillText(o.label, r.x + 8, r.y + r.h / 2 + 6);
     });
+  }
+  // 記録画面: 4つのボード（ALL STAGES / 各ステージ）のベスト3
+  function drawRecords() {
+    ctx.setTransform(view.k, 0, 0, view.k, 0, 0);
+    ctx.fillStyle = 'rgba(0,0,0,0.94)'; ctx.fillRect(0, 0, 630, 360);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#ffe9a0'; ctx.font = 'bold 26px sans-serif'; ctx.fillText('RECORDS', 315, 44);
+    RECORD_BOARDS.forEach((b, i) => {
+      const cx = 165 + (i % 2) * 300, y0 = 84 + Math.floor(i / 2) * 120;
+      ctx.fillStyle = '#ffffff'; ctx.font = 'bold 16px sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(b.label, cx, y0);
+      const list = recView[b.id] ?? [];
+      for (let k = 0; k < 3; k++) {
+        ctx.textAlign = 'left'; ctx.font = 'bold 18px monospace';
+        ctx.fillStyle = list[k] ? ['#ffd23f', '#e0e0e0', '#d99a5c'][k] : '#666';
+        ctx.fillText(`${k + 1}.`, cx - 80, y0 + 28 + k * 24);
+        ctx.textAlign = 'right';
+        ctx.fillText(list[k] ? fmtTime(list[k].t) : '--:--.--', cx + 80, y0 + 28 + k * 24);
+      }
+    });
+    ctx.textAlign = 'center'; ctx.fillStyle = '#aaa'; ctx.font = '12px sans-serif';
+    ctx.fillText('タップ / キーでもどる', 315, 346);
   }
   let last = performance.now();
   await new Promise(resolve => {
@@ -327,11 +363,13 @@ export async function runTitle({ canvas, cfg, logo, rtaList = [] }) {
       // START（静止）
       lx.drawImage(sc, Math.round((LW - logo.start.width) / 2), 84);
       if (rc) lx.drawImage(rc, RTA_X, RTA_Y);                         // 左下の「RTA」
+      if (kc) lx.drawImage(kc, REC_X, REC_Y);                         // その下の「RECORDS」
       // 画面へ（拡大はドットのまま）
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.imageSmoothingEnabled = false;
       ctx.drawImage(low, 0, 0, canvas.width, canvas.height);
       if (menu) drawMenu(t);
+      if (recView) drawRecords();
       if (go) {
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         fade += dt / 0.45;
@@ -527,4 +565,69 @@ export async function runIntro({ canvas, getJSON }) {
   const choice = await runTitle({ canvas, cfg, logo, rtaList: stages.rta ?? [] });
   if (choice) return choice;
   await runStory({ canvas, cfg, story, scene: 'forest', dotoo: rowsToCanvas(dotooData.rows, dotooData.palette) });
+}
+
+// ---- 操作説明 ----
+// 最初のストーリーのあとに出すポップアップ。× で閉じるとゲーム開始。「二度と表示しない」にチェックすると次からは出さない。
+const HELP_KEY = 'tooreasure.hideHelp';
+export async function runHelp() {
+  try { if (localStorage.getItem(HELP_KEY) === '1') return; } catch { /* 無視 */ }
+  const touch = document.body.classList.contains('touch');
+  const rows = touch ? [
+    ['◀ ▶', '移動'],
+    ['▲', 'ジャンプ'],
+    ['●', '調べる・はしごを降りる'],
+    ['⛶', '全画面'],
+  ] : [
+    ['← / → / A / D', '移動'],
+    ['Space / ↑ / W', 'ジャンプ'],
+    ['↓ / S', '調べる・はしごを降りる'],
+    ['R', 'リスポーン'],
+  ];
+  // ゲームっぽい紙のドット絵（枠と紙の質感を小さな canvas で描き、拡大して使う）
+  const px = (w, h, fn) => {
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const g = c.getContext('2d');
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const col = fn(x, y); if (col) { g.fillStyle = col; g.fillRect(x, y, 1, 1); } }
+    return c.toDataURL();
+  };
+  const INK = '#3b2a1a', TAN = '#d8c391', PAPER = '#fffdf4';
+  const frame = px(12, 12, (x, y) => {
+    const dx = Math.min(x, 11 - x), dy = Math.min(y, 11 - y);
+    if (dx < 4 && dy < 4) {
+      if (dx + dy < 2) return null;
+      if (dx === 0 || dy === 0 || dx + dy === 2) return INK;
+      return Math.min(dx, dy) < 3 ? TAN : PAPER;
+    }
+    const d = Math.min(dx, dy);
+    return d === 0 ? INK : d < 3 ? TAN : PAPER;
+  });
+  const grain = px(16, 16, (x, y) => ((x * 7 + y * 13) % 29 === 0 ? '#f0e8cf' : (x * 5 + y * 11) % 37 === 0 ? '#f7f1de' : PAPER));
+  const keycaps = k => k.split(' / ').map(t => `<span class="k">${t}</span>`).join('');
+  const el = document.createElement('div');
+  el.id = 'help';
+  el.innerHTML = `<div class="box" role="dialog" aria-label="操作説明">
+    <span class="tape"></span>
+    <table>${rows.map(([k, v]) => `<tr><td>${keycaps(k)}</td><td>${v}</td></tr>`).join('')}</table>
+    <div class="foot">
+      <label><input type="checkbox"> 二度と表示しない</label>
+      <button class="close">とじる</button>
+    </div>
+  </div>`;
+  const box = el.querySelector('.box');
+  box.style.borderImage = `url(${frame}) 4 / 12px stretch`;
+  box.style.backgroundImage = `url(${grain})`;
+  document.body.append(el);
+  const check = el.querySelector('input');
+  await new Promise(resolve => {
+    const close = () => {
+      try { if (check.checked) localStorage.setItem(HELP_KEY, '1'); } catch { /* 無視 */ }
+      removeEventListener('keydown', onKey, true);
+      el.remove();
+      resolve();
+    };
+    const onKey = e => { if (!e.repeat && (e.key === 'Escape' || e.key === 'Enter')) { e.preventDefault(); e.stopPropagation(); close(); } };
+    el.querySelector('.close').addEventListener('click', close);
+    addEventListener('keydown', onKey, true);
+  });
 }
