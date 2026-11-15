@@ -463,7 +463,7 @@ async function start() {
     }
     if (done) {
       ctx.textAlign = 'center'; ctx.fillStyle = '#aaa'; ctx.font = '11px sans-serif';
-      ctx.fillText(rta ? 'Enter / アクションボタンでタイトルへ　R でもう一度' : 'Enter / アクションボタンでタイトルへ', vw / 2, vh - 12);
+      ctx.fillText(rta ? '● / ↓ でタイトルへ　R でもう一度' : '● / ↓ でタイトルへ', vw / 2, vh - 12);
     }
     ctx.restore();
   }

@@ -330,7 +330,7 @@ export async function runTitle({ canvas, cfg, logo, rtaList = [] }) {
       }
     });
     ctx.textAlign = 'center'; ctx.fillStyle = '#aaa'; ctx.font = '12px sans-serif';
-    ctx.fillText('タップ / キーでもどる', 315, 346);
+    ctx.fillText('タップでもどる', 315, 346);
   }
   let last = performance.now();
   await new Promise(resolve => {
