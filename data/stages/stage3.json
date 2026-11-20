@@ -204,7 +204,7 @@
     "RRRRRR.............c.......c.........c.......LRRL...H.LLRRRRRRRRA...R.............................LLL.....V............L.................................c......RRRRRRRRLLLRRR........RRRRRRRRRRRRRRRRRR",
     "RRRRRRL.C......H...........H.................RRRRL..H.RRRRRRRRRRR...V...................hL......LLRRRL..........L......R...............T.................q......RRRRRRRRRRRRRR...c....RRRRRRRRRRRRRRRRRR",
     "RRRRRRRLLLj....H...........H................LRRRRR..H.V.RRRRRRRR................m.....LLLRLm....RRRRRR.......ALLR......R...............c.........................RRRRRRRRRRRRR...q....RRRRRRRRRRRRRRRRRR",
-    "RRRRRRRRRRL....H...........H.......c........RRRRRR..H...VRRRRRRV...............cccc...RRRRRLo..SRRRRRR......jRRRRL....LR...........ccc.c.......c..................VRRRRRRRRRRV.........RRRRRRRRRRRRRRRRR",
+    "RRRRRRRRRRL....H...........H.......c........RRRRRR..H...VRRRRRRV...............cccc...RRRRRLor.SRRRRRR......jRRRRL....LR...........ccc.c.......c..................VRRRRRRRRRRV.........RRRRRRRRRRRRRRRRR",
     "llRRRRllRRRL...c...........H.......H........RRRRRRL.H.....eRRRR..................q....RRRRRRLLLLRRRRRRL....LLRRRRRL.C.RRL............c.c.......q...................V.RRRRRRRRh.........RRRRRRRRRRRRRRRRR",
     "RRRRRRRlRRRR...H...........H.......H.......hRRRRRRR.H......RRV.......................hRRRRRRRRRRRRRRRRRLp.LRRRRRRRRLLLRRR..............c.........c...................RRRRRRRRL...c.....RRRRRRRRRRRRRRRRR",
     "RRRRRRRRRRRR...H...H.......H.......H......LLRRRRRRR.H.......R........c.....T.........LRRRRRRRRRRRRRRRRRRLLRRRRRRRRRRRRRRRh.....c.......q.......c.c...................RRRRRRRRR...H......VRRRRRRRRRRRRRRR",
@@ -267,6 +267,11 @@
       "col": 143,
       "row": 20,
       "text": "\nもうすぐ脱出できる気がする...！"
+    },
+    {
+      "col": 93,
+      "row": 38,
+      "text": "『周りをよく見てみよう！』"
     }
   ]
 }
