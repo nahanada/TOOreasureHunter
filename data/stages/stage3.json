@@ -77,14 +77,6 @@
       "row": 24
     },
     {
-      "col": 63,
-      "row": 51
-    },
-    {
-      "col": 77,
-      "row": 46
-    },
-    {
       "col": 100,
       "row": 25
     },
@@ -119,6 +111,14 @@
     {
       "col": 141,
       "row": 22
+    },
+    {
+      "col": 79,
+      "row": 44
+    },
+    {
+      "col": 63,
+      "row": 51
     }
   ],
   "chests": [
@@ -187,12 +187,12 @@
     "RRRRRRRRRRi.........iLLRRRV...RRRR......RRRRRRRRRRRRRRRRRRRVRRRRRRR............c.V..........RRRRRRRRRVRRRRRRRRRRRRRRRRRRRRRRRV....RVRRRV.R...........RR............hL......oo.RRRRRRRRRRRRRRRRRRRRRRRRRR",
     "RRRRRRRRRRLi.......eLRRR.......RRR......VRRRRRRRRRRRRRRRRRR.VRR..VR.cccc....m..c.............VRRV.VRR..VRRRRRRRRRRRRRRRRRRRRR.......V.R..V............R......L....LLR...j.LLLLRRRRRRRRRRRRRRRRRRRRRRRRRR",
     "RRRRRRRRRRRL.F........VV......eRRV.......RRRRRRRRRRRRRRRRRRT.R..............cccc...............R....R....RRRRRRRRRRRRRRRVRV....................C......V......R....RRR..LLLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
-    "RRRRRRRRRRRRLL.................RR.....cH.RRRRRRRRRRRRRRRRRRL...................q...LLi..............V...iRRRRRRRRRRRRRR.......................LLL...........hR...LRRR.hRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
-    "RRRRRRRRRRRRRRi..............T..R.....cH.RRRRRRRRRRRRRRRRRRRL.....................LRRLLL................LRRRRRRRRRRRRRRi......................RRR...........LR....VRRLLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
-    "RRRRRRRRRRRRRRL..............c.eR..ccccH..RRRRRRRRRRRRRRRRRRR.cccc.......ccc......RRRRRRLi.............iRRRRRRRRRRRRRRRLi...............LLL.iLRRR...........RR.....RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
-    "RRRRRRRRRRRRRRR.............cc..R......H..VRRRRRRRRRRRRRRRR...q...................RRRRRRRLL.o..........LRRRRRRRRRRRRRRRRL..F.......T....RRRLLRRRR....T...........hLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
-    "RRRRRRRRRRRRRRRL.j.......m......H..........RRRRRRRRRRRRR....................T...oLRRRRRRRRRLLLL..m....LRRRRRRRRRRRRRRRRRRLLLL......c......RRRRRRR...cccc........jLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
-    "RRRRRRRRRRRRRRRRLLH......c......H..........RRRRRRRRRRRRR...........T........LLLLLRRRRRRRRRRRRRR.LL.LLLRRRRRRRRRRRRRRRRRRRRRRRL.....c......VRRRRRV.....q........LLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+    "RRRRRRRRRRRRLL.................RR.....cH.RRRRRRRRRRRRRRRRRRL...................q......i.............V...iRRRRRRRRRRRRRR.......................LLL...........hR...LRRR.hRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+    "RRRRRRRRRRRRRRi..............T..R.....cH.RRRRRRRRRRRRRRRRRRRL.....................cc.LLL................LRRRRRRRRRRRRRRi......................RRR...........LR....VRRLLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+    "RRRRRRRRRRRRRRL..............c.eR..ccccH..RRRRRRRRRRRRRRRRRRR.cccc.......ccc.........RRRLi.............iRRRRRRRRRRRRRRRLi...............LLL.iLRRR...........RR.....RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+    "RRRRRRRRRRRRRRR.............cc..R......H..VRRRRRRRRRRRRRRRR...q.....................iRRRRLL.o..........LRRRRRRRRRRRRRRRRL..F.......T....RRRLLRRRR....T...........hLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+    "RRRRRRRRRRRRRRRL.j.......m......H..........RRRRRRRRRRRRR....................T....o..LRRRRRRLLLL..m....LRRRRRRRRRRRRRRRRRRLLLL......c......RRRRRRR...cccc........jLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+    "RRRRRRRRRRRRRRRRLLH......c......H..........RRRRRRRRRRRRR...........T........LLLLLLLLRRRRRRRRRRR.LL.LLLRRRRRRRRRRRRRRRRRRRRRRRL.....c......VRRRRRV.....q........LLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
     "RRRRRRRRRRRRRRRRRRH......H......H...........RRRRRRRRRR.............LLLL.....RRRRRRRRRRRRRRRRRRR.RRLRRRRRRRRRRRRRRRRRRRRRRRRRRR........c.....RRRR...............RRRRRRRRRRRRRRRRRVRRRRRRRRRRRRRRRRRRRRRRR",
     "RRRRRlRlRRRlRRRRRRH......H......H..........eRRRRRRR..........o.F...RRRRg.L.eRRRRRRRRRRRRRRRRRRRgRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR........q.....RRR..................V....eRRRRRRR...VRRRRRRRRRRRRRRRRRRRRRR",
     "RRRlRRRRRRlRRRRRRRH......H...............m...VRRRRR.........LLLLL..RRRR..R...RRRRRRRRRRRRRRRRRReRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRL.............VVR..........................RRg.......VRRRRRRRRRRRRRRRRRRRR",
@@ -203,18 +203,18 @@
     "RlRRlRV...........cc...........q.....H........LL....H..mRRRRRRRR....RV...........V...........VR....F....eRRRVV.........F.......cc...........c............T......RRRRRRRL..hRRL.......VRRRRRRRRRRRRRRRRRR",
     "RRRRRR.............c.......c.........c.......LRRL...H.LLRRRRRRRRA...R.............................LLL.....V............L.................................c......RRRRRRRRLLLRRR........RRRRRRRRRRRRRRRRRR",
     "RRRRRRL.C......H...........H.................RRRRL..H.RRRRRRRRRRR...V...................hL......LLRRRL..........L......R...............T.................q......RRRRRRRRRRRRRR...c....RRRRRRRRRRRRRRRRRR",
-    "RRRRRRRLLLj....H...........H................LRRRRR..H.V.RRRRRRRR................m.....LLLRLm....RRRRRR.......ALLR......R...............c.........................RRRRRRRRRRRRR...q....RRRRRRRRRRRRRRRRRR",
-    "RRRRRRRRRRL....H...........H.......c........RRRRRR..H...VRRRRRRV...............cccc...RRRRRLor.SRRRRRR......jRRRRL....LR...........ccc.c.......c..................VRRRRRRRRRRV.........RRRRRRRRRRRRRRRRR",
-    "llRRRRllRRRL...c...........H.......H........RRRRRRL.H.....eRRRR..................q....RRRRRRLLLLRRRRRRL....LLRRRRRL.C.RRL............c.c.......q...................V.RRRRRRRRh.........RRRRRRRRRRRRRRRRR",
-    "RRRRRRRlRRRR...H...........H.......H.......hRRRRRRR.H......RRV.......................hRRRRRRRRRRRRRRRRRLp.LRRRRRRRRLLLRRR..............c.........c...................RRRRRRRRL...c.....RRRRRRRRRRRRRRRRR",
-    "RRRRRRRRRRRR...H...H.......H.......H......LLRRRRRRR.H.......R........c.....T.........LRRRRRRRRRRRRRRRRRRLLRRRRRRRRRRRRRRRh.....c.......q.......c.c...................RRRRRRRRR...H......VRRRRRRRRRRRRRRR",
+    "RRRRRRRLLLj....H...........H................LRRRRR..H.V.RRRRRRRR......................LLLRLm....RRRRRR.......ALLR......R...............c.........................RRRRRRRRRRRRR...q....RRRRRRRRRRRRRRRRRR",
+    "RRRRRRRRRRL....H...........H.......c........RRRRRR..H...VRRRRRRV..............c.m.c...RRRRRL.o.SRRRRRR......jRRRRL....LR...........ccc.c.......c..................VRRRRRRRRRRV.........RRRRRRRRRRRRRRRRR",
+    "llRRRRllRRRL...c...........H.......H........RRRRRRL.H.....eRRRR...............ccccc...RRRRRRLLLLRRRRRRL....LLRRRRRL.C.RRL............c.c.......q...................V.RRRRRRRRh.........RRRRRRRRRRRRRRRRR",
+    "RRRRRRRlRRRR...H...........H.......H.......hRRRRRRR.H......RRV...................q...hRRRRRRRRRRRRRRRRRLp.LRRRRRRRRLLLRRR..............c.........c...................RRRRRRRRL...c.....RRRRRRRRRRRRRRRRR",
+    "RRRRRRRRRRRR...H...H.......H.......H......LLRRRRRRR.H.......R..............S.........LRRRRRRRRRRRRRRRRRRLLRRRRRRRRRRRRRRRh.....c.......q.......c.c...................RRRRRRRRR...H......VRRRRRRRRRRRRRRR",
     "RRRRRRRRRRRR...H...H.......c.......H......RRRRRRRRRLH.......V........cSSS..c.......LLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRllRRRRL.....c...............c.q..................LRRRRRRRRR...H.......RRRRRRRRRRRRRRR",
-    "RRRRlRRRRRRR.......c.......................RRRRRRRRRL................cccc..c......hRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRlRRR.....c..................T.................RRRRRRRRRRS..H.......RRRRRRRRRRRRRRR",
+    "RRRRlRRRRRRR.......c.......................RRRRRRRRRL................cccc.........hRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRlRRR.....c..................T.................RRRRRRRRRRS..H.......RRRRRRRRRRRRRRR",
     "RRRlRRRRRRRR.......q.......................VRRRRRRRRRh.m..............qqc........LLRRRRRRRRRRRRRRRRRRRRRRRRRRRRllRRRRRlRRR.....q.................ccc.......cccc....hRRRRRRRRRRLLLH....c...RRRRRRRRRRRRRR",
-    "RRRRRRRRlRRRL..................c..........C.RRRRRRRRRLLL......c...T.....c......LLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRlRRRR.................................c.qc....LRRRRRRRRRRRRR.....c...VRRRRRRRRRRRRR",
-    "RRRRRRRRRRRRRo.................c.........LLLRRRRRRRRRRRRo...ccc..cc........L..LRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRlRRRR.............c...................q.......RRRRRRRRRRRRR......q....RRRRRRRRRRRRR",
+    "RRRRRRRRlRRRL..................c..........C.RRRRRRRRRLLL.......................LLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRlRRRR.................................c.qc....LRRRRRRRRRRRRR.....c...VRRRRRRRRRRRRR",
+    "RRRRRRRRRRRRRo.................c.........LLLRRRRRRRRRRRRo....cc...T........L..LRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRlRRRR.............c...................q.......RRRRRRRRRRRRR......q....RRRRRRRRRRRRR",
     "RRRRRRRRRRRRRL............cm...q.c......hRRRRRRRRRRRRRRRLL.......cc.......LRLLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRlRlRRRRRRRRRlRR.............cc..........................RRRRRRRRRRRRV........c..RRRRRRRRRRRRR",
-    "RRRRRRRRRRlRRRLo..........cc............LRRRRRRRRRRRRRRRRRLhh.........o.j.RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRlRRRlRR...........................c........cc...RRRRRRRRRRRR.........c.LRRRRRRRRRRRRR",
+    "RRRRRRRRRRlRRRLo..........cc............LRRRRRRRRRRRRRRRRRLhh....cc...o.j.RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRlRRRlRR...........................c........cc...RRRRRRRRRRRR.........c.LRRRRRRRRRRRRR",
     "RRRRRRRRRRlRRRRLLL.j......q.......cc....RRRRRRRRRRRRRRRRRRRLLLL.......LLLLRRRRRRRRRRRRRRRRRRRRRRRRRRRRlRRRRlRRRRRRRRlRRRRR...........................c........cc...RRRRRRRRRRRn........cc.RRRRRRRRRRRRRR",
     "RRRRRRRRRRRRRRRRRRLL.....................RRRRRRRRRRRRRRRRRRRRRR....pLLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRlRRRRRRRRRlRRRRRRRRRR...............cccc........c.........q..SRRRRRRRRRRV..........q.RRRRRRRRRRRRRR",
     "RRRRRRRRRRRRRRRRRRRRL.................c..RRRRRRRRRRRRRRRRRRRRRR..pLLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRlRRRRRRRRRRL...............q..........c...........LLRRRRRRRRRR.............RRRRRRRRRRRRRR",
@@ -267,11 +267,6 @@
       "col": 143,
       "row": 20,
       "text": "\nもうすぐ脱出できる気がする...！"
-    },
-    {
-      "col": 93,
-      "row": 38,
-      "text": "『周りをよく見てみよう！』"
     }
   ]
 }
