@@ -385,26 +385,6 @@
         "forest"
       ]
     },
-    "rock_moss": {
-      "solid": true,
-      "rows": [
-        "vhvvhvvhvh",
-        "hvhhvvhvhv",
-        "bbabbvbbab",
-        "babbbbabbb",
-        "bbbxbbbbab",
-        "abbbbabbxb",
-        "bbbabbbbbb",
-        "bxbbbbabbb",
-        "bbbbaxbbba",
-        "babbbbbbab"
-      ],
-      "themes": [
-        "cave",
-        "field",
-        "forest"
-      ]
-    },
     "rock_light": {
       "solid": true,
       "rows": [
@@ -2038,30 +2018,6 @@
         "DEEEEEEEED",
         "DDDDDDDDDD",
         "....DD....",
-        "....DD...."
-      ]
-    },
-    "cave_sign_warn": {
-      "solid": false,
-      "interact": {
-        "text": true
-      },
-      "themes": [
-        "cave",
-        "forest",
-        "field",
-        "city"
-      ],
-      "rows": [
-        "..........",
-        "DDDDDDDDDD",
-        "DyyyyyyyyD",
-        "DyyyDDyyyD",
-        "DyyyDDyyyD",
-        "DyyyDDyyyD",
-        "DyyyyyyyyD",
-        "DyyyDDyyyD",
-        "DDDDDDDDDD",
         "....DD...."
       ]
     },

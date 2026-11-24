@@ -33,15 +33,13 @@
     "h": "crystal_blue",
     "i": "crystal_purple",
     "j": "mushroom_glow",
-    "k": "rock_moss",
     "l": "rock_light",
     "m": "bones",
     "n": "cobweb",
     "o": "pebbles",
     "p": "cave_puddle",
     "q": "hanging_roots",
-    "r": "cave_sign",
-    "s": "cave_sign_warn"
+    "r": "cave_sign"
   },
   "spawn": {
     "x": 465,
@@ -259,6 +257,16 @@
       "col": 82,
       "row": 58,
       "text": "『右の鍾乳石に気を付けて！』"
+    },
+    {
+      "col": 153,
+      "row": 34,
+      "text": "\n持って帰れねぇよ！"
+    },
+    {
+      "col": 108,
+      "row": 53,
+      "text": "\nちょうど欲しいと思ってたんよ"
     }
   ]
 }
