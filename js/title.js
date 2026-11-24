@@ -5,7 +5,7 @@
 
 import { rowsToCanvas } from './sprites.js';
 import { sfx } from './bgm.js';
-import { RECORD_BOARDS, fmtTime, loadRecords } from './records.js';
+import { RECORD_BOARDS, fmtTime, loadRecords, listFor } from './records.js';
 
 const LW = 210, LH = 120, S = 3;         // 低解像度のドット絵 210x120 を 3倍に拡大 = 630x360（ゲームの見える範囲と同じ）
 
@@ -244,6 +244,24 @@ export async function runTitle({ canvas, cfg, logo, rtaList = [] }) {
     kc.width = logo.records.width; kc.height = logo.records.height;
     paint(logo.records, kc.getContext('2d'));
   }
+  // 「STAR」（記録画面の RECORDS の隣・ボタン型）。押すと完全攻略の記録だけを表示
+  let starC = null, starDark = null;                                 // starDark: 金色のボタンの上で読める色
+  if (logo.star) {
+    starC = document.createElement('canvas');
+    starC.width = logo.star.width; starC.height = logo.star.height;
+    paint(logo.star, starC.getContext('2d'));
+    starDark = document.createElement('canvas');
+    starDark.width = starC.width; starDark.height = starC.height;
+    paint({ ...logo.star, palette: { a: '#ffd23f', b: '#222222' } }, starDark.getContext('2d'));
+  }
+  // 記録画面の見出し: RECORDS は左右中央、STAR ボタンは右上（論理座標 630x360）。描く位置と押せる範囲の両方に使う
+  const BTN_SCALE = 2;                                                // STAR の文字の大きさ（RECORDS より小さめ）
+  function recHeader() {
+    const rw = (kc?.width ?? 0) * S, rh = (kc?.height ?? 0) * S;
+    const bw = (starC?.width ?? 0) * BTN_SCALE + 16, bh = (starC?.height ?? 0) * BTN_SCALE + 10;
+    return { rec: { x: 315 - rw / 2, y: 20, w: rw, h: rh }, btn: { x: 630 - 12 - bw, y: 12, w: bw, h: bh } };
+  }
+  let starOnly = false;
   const REC_X = 4, REC_Y = LH - (logo.records?.height ?? 7) - 4;
   const RTA_X = 4, RTA_Y = REC_Y - (logo.rta?.height ?? 7) - 5;          // 低解像度での位置（RTA は RECORDS の少し上）
   const recHit = { x: REC_X * S - 9, y: REC_Y * S - 7, w: (logo.records?.width ?? 0) * S + 18, h: (logo.records?.height ?? 0) * S + 14 };
@@ -264,7 +282,7 @@ export async function runTitle({ canvas, cfg, logo, rtaList = [] }) {
   const onPointer = e => {
     if (go || performance.now() - t0 < 250 || e.target?.id === 'btn-fs') return;
     const p = toLogical(e);
-    if (recView) { recView = null; return; }                       // 記録画面はどこを押しても閉じる
+    if (recView) { if (starC && inside(p, recHeader().btn)) starOnly = !starOnly; else recView = null; return; }      // STAR で切り替え / それ以外は閉じる
     if (menu) {
       const i = rtaList.findIndex((_, k) => inside(p, optRect(k)));
       if (i >= 0) start(rtaList[i].id);
@@ -272,7 +290,7 @@ export async function runTitle({ canvas, cfg, logo, rtaList = [] }) {
       return;
     }
     if (rc && inside(p, rtaHit)) { menu = true; sel = 0; return; }
-    if (kc && inside(p, recHit)) { recView = loadRecords(); return; }
+    if (kc && inside(p, recHit)) { recView = loadRecords(); starOnly = false; return; }
     start();
   };
   const onMove = e => {
@@ -282,7 +300,7 @@ export async function runTitle({ canvas, cfg, logo, rtaList = [] }) {
   };
   const onKey = e => {
     if (go || performance.now() - t0 < 250 || ignoreKey(e)) return;
-    if (recView) { recView = null; e.preventDefault(); return; }
+    if (recView) { if (starC && (e.key === 's' || e.key === 'S')) starOnly = !starOnly; else recView = null; e.preventDefault(); return; }
     if (menu) {
       if (e.key === 'ArrowUp' || e.key === 'w') sel = (sel + rtaList.length - 1) % rtaList.length;
       else if (e.key === 'ArrowDown' || e.key === 's') sel = (sel + 1) % rtaList.length;
@@ -292,7 +310,7 @@ export async function runTitle({ canvas, cfg, logo, rtaList = [] }) {
       return;
     }
     if (rc && (e.key === 'r' || e.key === 'R')) { menu = true; sel = 0; return; }   // R キーでも RTA メニュー
-    if (kc && (e.key === 'c' || e.key === 'C')) { recView = loadRecords(); return; }   // C キーで記録
+    if (kc && (e.key === 'c' || e.key === 'C')) { recView = loadRecords(); starOnly = false; return; }   // C キーで記録
     start();
   };
   addEventListener('pointerdown', onPointer);
@@ -315,22 +333,39 @@ export async function runTitle({ canvas, cfg, logo, rtaList = [] }) {
     ctx.setTransform(view.k, 0, 0, view.k, 0, 0);
     ctx.fillStyle = 'rgba(0,0,0,0.94)'; ctx.fillRect(0, 0, 630, 360);
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#ffe9a0'; ctx.font = 'bold 26px sans-serif'; ctx.fillText('RECORDS', 315, 44);
+    ctx.imageSmoothingEnabled = false;
+    const hd = recHeader();
+    ctx.drawImage(kc, hd.rec.x, hd.rec.y, hd.rec.w, hd.rec.h);             // RECORDS（タイトルと同じドット文字）
+    if (starC) {
+      const on = starOnly, bt = hd.btn;
+      ctx.fillStyle = on ? '#ffd23f' : '#222222';                          // ボタン本体
+      ctx.beginPath(); ctx.roundRect ? ctx.roundRect(bt.x, bt.y, bt.w, bt.h, 4) : ctx.rect(bt.x, bt.y, bt.w, bt.h); ctx.fill();
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.roundRect ? ctx.roundRect(bt.x + 1, bt.y + 1, bt.w - 2, bt.h - 2, 3) : ctx.rect(bt.x + 1, bt.y + 1, bt.w - 2, bt.h - 2); ctx.stroke();
+      ctx.drawImage(on ? starDark : starC, bt.x + 8, bt.y + 5, starC.width * BTN_SCALE, starC.height * BTN_SCALE);
+    }
     RECORD_BOARDS.forEach((b, i) => {
       const cx = 165 + (i % 2) * 300, y0 = 84 + Math.floor(i / 2) * 120;
       ctx.fillStyle = '#ffffff'; ctx.font = 'bold 16px sans-serif'; ctx.textAlign = 'center';
       ctx.fillText(b.label, cx, y0);
-      const list = recView[b.id] ?? [];
+      const list = listFor(recView, b.id, starOnly);
       for (let k = 0; k < 3; k++) {
+        const e = list[k], y = y0 + 28 + k * 24;
+        ctx.fillStyle = e ? ['#ffd23f', '#e0e0e0', '#d99a5c'][k] : '#666';
         ctx.textAlign = 'left'; ctx.font = 'bold 18px monospace';
-        ctx.fillStyle = list[k] ? ['#ffd23f', '#e0e0e0', '#d99a5c'][k] : '#666';
-        ctx.fillText(`${k + 1}.`, cx - 80, y0 + 28 + k * 24);
+        ctx.fillText(`${k + 1}.`, cx - 110, y);
         ctx.textAlign = 'right';
-        ctx.fillText(list[k] ? fmtTime(list[k].t) : '--:--.--', cx + 80, y0 + 28 + k * 24);
+        ctx.fillText(e ? fmtTime(e.t) : '--:--.--', cx + 20, y);
+        if (e?.p) {   // 完全攻略: 「死亡0回」と同じ位置の左右中央に星
+          ctx.font = '13px sans-serif';
+          const mid = cx + 112 - ctx.measureText('死亡0回').width / 2;
+          ctx.fillStyle = '#ffd23f'; ctx.textAlign = 'center'; ctx.font = 'bold 16px sans-serif'; ctx.fillText('★', mid, y);
+        }
+        else if (e && Number.isFinite(e.x)) { ctx.fillStyle = '#bbb'; ctx.textAlign = 'right'; ctx.font = '13px sans-serif'; ctx.fillText(`死亡${e.x}回`, cx + 112, y); }
       }
     });
     ctx.textAlign = 'center'; ctx.fillStyle = '#aaa'; ctx.font = '12px sans-serif';
-    ctx.fillText('タップでもどる', 315, 346);
+    ctx.fillText('★：完全攻略（死亡0回 & お宝全部回収）　　タップ / キーでもどる　　', 315, 346);
   }
   let last = performance.now();
   await new Promise(resolve => {

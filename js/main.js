@@ -160,12 +160,17 @@ async function start() {
   function clearStage(extra = {}) {
     if (cleared) return;
     // 記録: RTA ならそのステージのタイム / 通しで遊んだなら合計タイムを、ベスト3に登録
-    let rank = 0;
-    if (finalStage && (rta || run.stages[stageList.first])) {      // 通しの記録は、最初のステージから遊んだときだけ
-      rank = addRecord(rta ? stageId : 'all', rta ? rec.time : allStages().reduce((a, r) => a + (r.time || 0), 0));
-      keepRecords();
+    let rank = 0, perfect = false;
+    if (finalStage) {
+      const list = rta ? [rec] : allStages();
+      const sum = k => list.reduce((a, r) => a + (r[k] || 0), 0);
+      perfect = sum('opened') >= sum('chests') && sum('deaths') === 0;      // 完全攻略: 宝箱を全部開けて、死亡0回でゴール
+      if (rta || run.stages[stageList.first]) {      // 通しの記録は、最初のステージから遊んだときだけ
+        rank = addRecord(rta ? stageId : 'all', sum('time'), sum('deaths'), perfect);
+        keepRecords();
+      }
     }
-    cleared = { t: 0, rt: 0, rank, phase: finalStage ? (ending.length ? 'fade' : 'result') : null, ...extra };
+    cleared = { t: 0, rt: 0, rank, perfect, phase: finalStage ? (ending.length ? 'fade' : 'result') : null, ...extra };
     if (finalStage) { toast.time = 0; bgm.play('forest', 0.8); }   // 結果画面に字幕が重ならないよう消す / ゴールしたら forest_bgm
     // 次のステージで曲が変わる（森 → 洞窟）ときは、切り替わる前に一瞬フェードアウト
     if (!finalStage && nextTrack && nextTrack !== (stage.theme === 'cave' ? 'cave' : 'forest')) bgm.fadeOut(0.9);
@@ -450,8 +455,12 @@ async function start() {
       ctx.fillStyle = '#ffe9a0'; ctx.font = 'bold 24px monospace'; ctx.fillText(`${opened}/${chests}`, vw / 2, 170);
     }
     if (t >= 1.8) {
-      ctx.fillStyle = '#ffffff'; ctx.font = 'bold 13px sans-serif'; ctx.fillText('リスポーン', vw / 2 - 40, 198);
+      ctx.fillStyle = '#ffffff'; ctx.font = 'bold 13px sans-serif'; ctx.fillText('死亡回数', vw / 2 - 40, 198);
       ctx.fillStyle = '#ffe9a0'; ctx.font = 'bold 20px monospace'; ctx.fillText(`${deaths}回`, vw / 2 + 40, 198);
+    }
+    if (t >= 1.8 && cleared.perfect) {
+      ctx.fillStyle = Math.floor(t * 3) % 2 ? '#ffd23f' : '#fff3b0'; ctx.font = 'bold 16px sans-serif';
+      ctx.fillText('★ 完全攻略 ★', vw / 2, 64);
     }
     if (t >= 2.2 && items.length) {
       ctx.fillStyle = '#ffffff'; ctx.font = 'bold 12px sans-serif'; ctx.fillText('持ち帰ったお宝', vw / 2, 226);

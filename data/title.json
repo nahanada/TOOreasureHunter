@@ -122,5 +122,22 @@
    "aba.ababbbbbaabbbaaabbbaaba.ababbbbaabbbbaa",
    "aaa.aaaaaaaaaaaaaa.aaaaaaaa.aaaaaaaaaaaaaa."
   ]
+ },
+ "star": {
+  "width": 25,
+  "height": 7,
+  "palette": {
+   "a": "#222222",
+   "b": "#ffffff"
+  },
+  "rows": [
+   ".aaaaaaaaaaaaaaaaaaaaaaa.",
+   "aabbbbabbbbbaabbbaabbbbaa",
+   "abaaaaaaabaaabaaababaaaba",
+   "aabbbaa.aba.abbbbbabbbbaa",
+   "aaaaaba.aba.abaaababaaaba",
+   "abbbbaa.aba.aba.ababa.aba",
+   "aaaaaa..aaa.aaa.aaaaa.aaa"
+  ]
  }
 }
