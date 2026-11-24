@@ -142,7 +142,9 @@ async function start() {
     if (!run?.stages || stageId === stageList.first) run = { stages: {} };
   }
   const chestCh = world.charFor('chest');
-  const chestCount = world.grid.reduce((n, row) => n + row.filter(ch => ch === chestCh).length, 0);
+  // 宝箱の数は中身が設定されているものだけ（空っぽの宝箱は数えない）
+  const hasItem = (c, r) => !!world.chests[`${c},${r}`];
+  const chestCount = world.grid.reduce((n, row, r) => n + row.reduce((m, ch, c) => m + (ch === chestCh && hasItem(c, r) ? 1 : 0), 0), 0);
   const rec = run.stages[stageId] = { items: [], opened: 0, chests: chestCount, time: 0, deaths: 0 };
   const allStages = () => Object.values(run.stages);
   // 前のステージで取ったチョコレート・なめらかプリン（jump）は持ち越す（このステージの基本値に足す）
@@ -233,7 +235,7 @@ async function start() {
   function updateInteract(input, dt) {
     interactTarget = world.findInteractable(player.x, player.y, cfg.hitboxW, cfg.hitboxH);
     if (interactTarget && input.action) {
-      if (interactTarget.name === 'chest') rec.opened++;              // 開けた宝箱の数（空っぽでも数える）
+      if (interactTarget.name === 'chest' && world.chests[`${interactTarget.c},${interactTarget.r}`]) rec.opened++;   // 開けた宝箱の数（中身があるものだけ）
       const result = world.interact(interactTarget);
       toast = result.subtitle
         ? { text: result.message, time: 1e9, sub: true, born: performance.now(), x: player.x }   // ポスターなど: 字幕。動くと消える
